@@ -7,8 +7,8 @@ function App() {
       <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 max-w-2xl text-center">
         <div className="mb-8">
           <img 
-            src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
-            alt="Yeti Tech" 
+            src="https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg" 
+            alt="Frosty Ape Yeti" 
             className="w-24 h-24 rounded-full mx-auto mb-6 shadow-xl border-4 border-white/50"
           />
           <h1 className="text-5xl font-bold text-white mb-4 text-shadow-lg">
@@ -17,12 +17,18 @@ function App() {
           <p className="text-white/90 text-xl mb-2">
             Web3 Community Walkie-Talkie
           </p>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-lg mb-4">
             Built for Frosty Ape Yeti NFT Holders
           </p>
-          <p className="text-white/60 text-sm mt-3 font-medium">
-            Built with Yeti Tech 🐾
-          </p>
+          <div className="flex items-center justify-center space-x-2 text-white/60 text-sm font-medium">
+            <span>Built with</span>
+            <img 
+              src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
+              alt="Yeti Tech" 
+              className="w-6 h-6 rounded-full border border-white/30"
+            />
+            <span>Yeti Tech 🐾</span>
+          </div>
         </div>
 
         <div className="bg-white/5 rounded-2xl p-6 mb-8 border border-white/10">
