@@ -18,9 +18,26 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const BACKEND_URL = process.env.REACT_APP_YETI_BACKEND_URL || 'http://localhost:8002';
+  
+  // Demo mode - bypass wallet connection
+  const DEMO_MODE = true;
 
   useEffect(() => {
-    // Check if user is already logged in
+    if (DEMO_MODE) {
+      // Auto-login with demo user for demonstration
+      setTimeout(() => {
+        const demoUser = {
+          walletAddress: '0x1234...Demo',
+          tokenId: 2547,
+          accessToken: 'demo_token'
+        };
+        setUser(demoUser);
+        setIsLoading(false);
+      }, 1000); // Show loading for 1 second
+      return;
+    }
+
+    // Check if user is already logged in (real mode)
     const storedUser = localStorage.getItem('yeti_user');
     if (storedUser) {
       try {
@@ -34,6 +51,12 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const connectWallet = async () => {
+    if (DEMO_MODE) {
+      // In demo mode, just show a message
+      setError('Demo mode: Wallet connection disabled. This will be enabled when we go live!');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -97,6 +120,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const disconnect = () => {
+    if (DEMO_MODE) {
+      // In demo mode, just reload the page
+      window.location.reload();
+      return;
+    }
     setUser(null);
     localStorage.removeItem('yeti_user');
   };
@@ -107,7 +135,8 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     connectWallet,
     disconnect,
-    error
+    error,
+    demoMode: DEMO_MODE
   };
 
   return (
