@@ -155,6 +155,31 @@
   .nft-glow {
     animation: nft-pulse 3s ease-in-out infinite;
   }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #00ff88 #1a2332;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #1a2332;
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #00ff88, #00ccff);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #00ccff, #00ff88);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+  }
 }
 
 @keyframes pulse-glow {
