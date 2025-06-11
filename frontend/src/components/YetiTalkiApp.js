@@ -15,7 +15,7 @@ const YetiTalkiApp = () => {
 };
 
 const AppContent = () => {
-  const { isAuthenticated, isLoading, user } = useAuth();
+  const { isAuthenticated, isLoading, user, demoMode } = useAuth();
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -27,6 +27,18 @@ const AppContent = () => {
 
   return (
     <div className="w-full max-w-md mx-auto">
+      {/* Demo Mode Banner */}
+      {demoMode && (
+        <div className="bg-yellow-500/20 border border-yellow-500/40 rounded-xl p-3 mb-6 text-center">
+          <p className="text-yellow-200 text-sm font-medium">
+            🚧 DEMO MODE
+          </p>
+          <p className="text-yellow-200/80 text-xs">
+            Wallet connection will be enabled when we go live!
+          </p>
+        </div>
+      )}
+
       <div className="text-center mb-8">
         <img 
           src="https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg" 
@@ -56,8 +68,17 @@ const AppContent = () => {
       <SimpleWalkieTalkie />
       
       <div className="text-center mt-8 text-white/70 text-xs">
-        <p>Connected to Ape Chain</p>
-        <p className="truncate">{user?.walletAddress}</p>
+        {demoMode ? (
+          <>
+            <p>Demo Mode - Ape Chain Ready</p>
+            <p className="truncate">Demo Wallet: {user?.walletAddress}</p>
+          </>
+        ) : (
+          <>
+            <p>Connected to Ape Chain</p>
+            <p className="truncate">{user?.walletAddress}</p>
+          </>
+        )}
       </div>
     </div>
   );
