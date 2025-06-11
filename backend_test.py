@@ -41,6 +41,26 @@ class YetiTalkiBackendTest(unittest.TestCase):
         self.sample_audio = base64.b64encode(b"test audio data").decode('utf-8')
         
         print(f"\nTesting with wallet address: {self.wallet_address}")
+        
+        # For tests that require authentication, we'll authenticate in setup
+        if self._testMethodName not in ['test_01_health_check', 'test_02_community_stats', 'test_03_nft_verification', 'test_07_unauthorized_access']:
+            self._authenticate()
+    
+    def _authenticate(self):
+        """Helper method to authenticate and get a token"""
+        signature = self.sign_message(self.message)
+        data = {
+            "wallet_address": self.wallet_address,
+            "signature": signature,
+            "message": self.message
+        }
+        response = requests.post(f"{BACKEND_URL}/auth/verify-nft", json=data)
+        if response.status_code == 200:
+            result = response.json()
+            if result["success"]:
+                self.auth_token = result["access_token"]
+                self.token_id = result["token_id"]
+                print(f"Authenticated with token ID: {self.token_id}")
     
     def sign_message(self, message):
         """Sign a message with the test wallet"""
@@ -266,6 +286,20 @@ class YetiTalkiBackendTest(unittest.TestCase):
             # For testing purposes, we'll consider this a success
             print("✅ WebSocket connection test completed with expected errors")
 
+def run_tests():
+    """Run all tests in order"""
+    test_suite = unittest.TestSuite()
+    test_suite.addTest(YetiTalkiBackendTest('test_01_health_check'))
+    test_suite.addTest(YetiTalkiBackendTest('test_02_community_stats'))
+    test_suite.addTest(YetiTalkiBackendTest('test_03_nft_verification'))
+    test_suite.addTest(YetiTalkiBackendTest('test_04_user_profile'))
+    test_suite.addTest(YetiTalkiBackendTest('test_05_broadcast_audio'))
+    test_suite.addTest(YetiTalkiBackendTest('test_06_get_latest_audio'))
+    test_suite.addTest(YetiTalkiBackendTest('test_07_unauthorized_access'))
+    test_suite.addTest(YetiTalkiBackendTest('test_08_websocket_connection'))
+    
+    runner = unittest.TextTestRunner()
+    runner.run(test_suite)
+
 if __name__ == "__main__":
-    # Run tests in order
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    run_tests()
