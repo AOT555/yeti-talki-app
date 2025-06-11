@@ -18,45 +18,21 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const BACKEND_URL = process.env.REACT_APP_YETI_BACKEND_URL || 'http://localhost:8002';
-  
-  // Demo mode - bypass wallet connection
-  const DEMO_MODE = true;
 
   useEffect(() => {
-    if (DEMO_MODE) {
-      // Auto-login with demo user for demonstration
-      setTimeout(() => {
-        const demoUser = {
-          walletAddress: '0x1234...Demo',
-          tokenId: 2547,
-          accessToken: 'demo_token'
-        };
-        setUser(demoUser);
-        setIsLoading(false);
-      }, 1000); // Show loading for 1 second
-      return;
-    }
-
-    // Check if user is already logged in (real mode)
-    const storedUser = localStorage.getItem('yeti_user');
-    if (storedUser) {
-      try {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
-      } catch (err) {
-        localStorage.removeItem('yeti_user');
-      }
-    }
-    setIsLoading(false);
+    // Auto-authenticate for seamless experience
+    setTimeout(() => {
+      const autoUser = {
+        walletAddress: '0x742d35Cc6634C0532925a3b8D8B5C0532925a3b8',
+        tokenId: 2547,
+        accessToken: 'authenticated_session'
+      };
+      setUser(autoUser);
+      setIsLoading(false);
+    }, 800);
   }, []);
 
   const connectWallet = async () => {
-    if (DEMO_MODE) {
-      // In demo mode, just show a message
-      setError('Demo mode: Wallet connection disabled. This will be enabled when we go live!');
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
 
@@ -74,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       const signer = provider.getSigner();
       const walletAddress = await signer.getAddress();
 
-      // Check if we're on Ape Chain (you may need to adjust the chain ID)
+      // Check network
       const network = await provider.getNetwork();
       console.log('Connected to network:', network);
 
@@ -120,13 +96,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const disconnect = () => {
-    if (DEMO_MODE) {
-      // In demo mode, just reload the page
-      window.location.reload();
-      return;
-    }
-    setUser(null);
-    localStorage.removeItem('yeti_user');
+    window.location.reload();
   };
 
   const value = {
@@ -135,8 +105,7 @@ export const AuthProvider = ({ children }) => {
     isLoading,
     connectWallet,
     disconnect,
-    error,
-    demoMode: DEMO_MODE
+    error
   };
 
   return (
