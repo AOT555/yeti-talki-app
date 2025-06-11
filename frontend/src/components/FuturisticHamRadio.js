@@ -242,6 +242,24 @@ const FuturisticHamRadio = () => {
               YETI CALL PAD
             </div>
             
+            {/* NFT Preview Box */}
+            {dialedNumber && parseInt(dialedNumber) >= 1 && parseInt(dialedNumber) <= 5000 && (
+              <div className="bg-black rounded-lg p-4 mb-4 text-center border border-cyan-400/50">
+                <div className="retro-text-cyan text-sm mb-3">CALLING:</div>
+                <img 
+                  src={yetiNFTs[parseInt(dialedNumber) % yetiNFTs.length]}
+                  alt={`Yeti #${dialedNumber}`}
+                  className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-cyan-400 nft-glow"
+                />
+                <div className="retro-text-cyan text-lg font-bold">
+                  YETI #{dialedNumber}
+                </div>
+                <div className="retro-text text-xs mt-1 opacity-70">
+                  Ready to leave voicemail
+                </div>
+              </div>
+            )}
+            
             {/* Number Display */}
             <div className="bg-black rounded p-4 mb-4 text-center">
               <div className="retro-text text-2xl font-mono">
