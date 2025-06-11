@@ -18,29 +18,29 @@ const FuturisticHamRadio = () => {
   const [isRecordingVoicemail, setIsRecordingVoicemail] = useState(false);
   const [voicemailTime, setVoicemailTime] = useState(0);
   const [callingNumber, setCallingNumber] = useState(null);
+  const [showAccessDenied, setShowAccessDenied] = useState(false);
 
-  // Sample Yeti NFT images for display
-  const yetiNFTs = [
-    'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg',
-    'https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg'
-  ];
+  // NFT Images - Frosty Ape YETI Mob logos
+  const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
+  const yetiTechLogo = 'https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg'; // #2559 logo
 
   // Generate mock activity log entries
   const generateLogEntry = (id) => {
     const now = new Date();
     const randomMinutesAgo = Math.floor(Math.random() * 1440); // Up to 24 hours ago
     const timestamp = new Date(now.getTime() - randomMinutesAgo * 60000);
-    const types = ['normal', 'emergency', 'voicemail'];
+    const types = ['normal', 'emergency', 'voicemail', 'yeti_tech'];
     const type = types[Math.floor(Math.random() * types.length)];
     
     return {
       id: id,
       tokenId: Math.floor(Math.random() * 5000) + 1,
-      image: yetiNFTs[Math.floor(Math.random() * yetiNFTs.length)],
+      image: type === 'yeti_tech' ? yetiTechLogo : frostyApeYetiMobLogo,
       timestamp: timestamp,
       duration: (Math.random() * 25 + 2).toFixed(1), // 2-27 seconds
       type: type,
-      calledNumber: type === 'voicemail' ? Math.floor(Math.random() * 5000) + 1 : null
+      calledNumber: type === 'voicemail' ? Math.floor(Math.random() * 5000) + 1 : null,
+      isYetiTech: type === 'yeti_tech'
     };
   };
 
@@ -140,7 +140,7 @@ const FuturisticHamRadio = () => {
             const voicemailEntry = {
               id: activityLog.length,
               tokenId: user?.tokenId,
-              image: yetiNFTs[0],
+              image: frostyApeYetiMobLogo,
               timestamp: new Date(),
               duration: prev.toFixed(1),
               type: 'voicemail',
@@ -165,58 +165,8 @@ const FuturisticHamRadio = () => {
   };
 
   const handleTransmit = () => {
-    if (isTransmitting) {
-      setIsTransmitting(false);
-      setTransmissionTime(0);
-      
-      // Add new entry to activity log
-      const newEntry = {
-        id: activityLog.length,
-        tokenId: user?.tokenId,
-        image: yetiNFTs[0], // Use first image for user
-        timestamp: new Date(),
-        duration: transmissionTime.toFixed(1),
-        type: 'own'
-      };
-      setActivityLog(prev => [newEntry, ...prev]);
-      
-      // Simulate incoming message after transmission
-      setTimeout(() => {
-        const sender = {
-          tokenId: Math.floor(Math.random() * 5000) + 1,
-          image: yetiNFTs[Math.floor(Math.random() * yetiNFTs.length)],
-          duration: 4.2
-        };
-        setCurrentSender(sender);
-        setIsReceiving(true);
-        setTimeout(() => setIsReceiving(false), 4200);
-        
-        // Add incoming message to log
-        const incomingEntry = {
-          id: activityLog.length + 1,
-          tokenId: sender.tokenId,
-          image: sender.image,
-          timestamp: new Date(),
-          duration: sender.duration.toFixed(1),
-          type: 'normal'
-        };
-        setActivityLog(prev => [incomingEntry, ...prev]);
-      }, 800);
-    } else {
-      setIsTransmitting(true);
-      
-      // Simulate transmission timer
-      const timer = setInterval(() => {
-        setTransmissionTime(prev => {
-          if (prev >= 30) {
-            setIsTransmitting(false);
-            clearInterval(timer);
-            return 0;
-          }
-          return prev + 0.1;
-        });
-      }, 100);
-    }
+    // Show access denied popup instead of transmitting
+    setShowAccessDenied(true);
   };
 
   const playMessage = () => {
@@ -234,12 +184,51 @@ const FuturisticHamRadio = () => {
       {/* Scan Line Effect */}
       <div className="scan-line fixed inset-0 pointer-events-none z-10"></div>
       
+      {/* Access Denied Popup */}
+      {showAccessDenied && (
+        <div className="fixed inset-0 bg-red-900/80 flex items-center justify-center z-50 animate-pulse">
+          <div className="bg-black border-4 border-red-500 rounded-lg p-8 max-w-md text-center shadow-2xl animate-bounce">
+            <div className="text-red-500 text-6xl mb-4">⚠️</div>
+            <div className="text-red-400 text-3xl font-bold mb-4 animate-pulse">
+              ACCESS DENIED
+            </div>
+            <img 
+              src={frostyApeYetiMobLogo}
+              alt="Frosty Ape YETI Mob" 
+              className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-500 animate-spin"
+            />
+            <div className="text-red-300 text-xl font-bold mb-4">
+              MUST HAVE
+            </div>
+            <div className="text-red-200 text-lg font-bold mb-6">
+              FROSTY APE YETI MOB NFT
+            </div>
+            <div className="space-y-3">
+              <a
+                href="https://x.com/FrostyApeYeti"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded font-bold transition-colors"
+              >
+                🐦 GET FROSTY APE YETI MOB
+              </a>
+              <button
+                onClick={() => setShowAccessDenied(false)}
+                className="w-full bg-gray-600 hover:bg-gray-500 text-white py-2 px-6 rounded"
+              >
+                CLOSE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Phone Pad Modal */}
       {showPhonePad && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="nft-display-panel rounded-lg p-6 w-80">
             <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
-              YETI CALL PAD
+              YETI MOB CALL PAD
             </div>
             
             {/* NFT Preview Box */}
@@ -247,12 +236,12 @@ const FuturisticHamRadio = () => {
               <div className="bg-black rounded-lg p-4 mb-4 text-center border border-cyan-400/50">
                 <div className="retro-text-cyan text-sm mb-3">CALLING:</div>
                 <img 
-                  src={yetiNFTs[parseInt(dialedNumber) % yetiNFTs.length]}
-                  alt={`Yeti #${dialedNumber}`}
+                  src={frostyApeYetiMobLogo}
+                  alt={`Frosty Ape YETI Mob #${dialedNumber}`}
                   className="w-24 h-24 rounded-lg mx-auto mb-3 border-2 border-cyan-400 nft-glow"
                 />
                 <div className="retro-text-cyan text-lg font-bold">
-                  YETI #{dialedNumber}
+                  YETI MOB #{dialedNumber}
                 </div>
                 <div className="retro-text text-xs mt-1 opacity-70">
                   Ready to leave voicemail
@@ -266,7 +255,7 @@ const FuturisticHamRadio = () => {
                 {dialedNumber || '____'}
               </div>
               <div className="retro-text-orange text-xs mt-1">
-                ENTER YETI ID (1-5000)
+                ENTER YETI MOB ID (1-5000)
               </div>
             </div>
             
@@ -328,7 +317,7 @@ const FuturisticHamRadio = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="nft-display-panel rounded-lg p-8 w-96">
             <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
-              VOICEMAIL TO YETI #{callingNumber}
+              VOICEMAIL TO YETI MOB #{callingNumber}
             </div>
             
             <div className="bg-black rounded p-6 mb-6 text-center">
@@ -375,7 +364,7 @@ const FuturisticHamRadio = () => {
               <div className="flex items-center space-x-3 text-sm">
                 <span className="retro-text-orange">Built with</span>
                 <img 
-                  src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
+                  src={yetiTechLogo}
                   alt="Yeti Tech" 
                   className="w-6 h-6 rounded-full border border-orange-500"
                 />
@@ -384,7 +373,7 @@ const FuturisticHamRadio = () => {
             </div>
             <div className="text-right">
               <div className="retro-text-cyan text-lg">APE CHAIN NETWORK</div>
-              <div className="retro-text">OPERATOR: YETI #{user?.tokenId}</div>
+              <div className="retro-text">OPERATOR: YETI MOB #{user?.tokenId}</div>
             </div>
           </div>
           
@@ -393,7 +382,7 @@ const FuturisticHamRadio = () => {
             <div className="flex items-center space-x-8 text-lg">
               <div>FREQ: {frequency} MHz</div>
               <div>SIGNAL: {signalStrength}%</div>
-              <div>ACTIVE: {activeUsers} YETIS</div>
+              <div>ACTIVE: {activeUsers} YETI MOBS</div>
             </div>
             <div className="flex items-center space-x-3">
               <div className={`w-4 h-4 rounded-full ${
@@ -426,11 +415,11 @@ const FuturisticHamRadio = () => {
                   <div className="text-center">
                     <img 
                       src={currentSender.image}
-                      alt={`Yeti #${currentSender.tokenId}`}
+                      alt={`Frosty Ape YETI Mob #${currentSender.tokenId}`}
                       className="w-48 h-48 rounded-lg mx-auto mb-6 nft-glow border-3 border-cyan-400"
                     />
                     <div className="retro-text-cyan text-2xl font-bold">
-                      YETI #{currentSender.tokenId}
+                      YETI MOB #{currentSender.tokenId}
                     </div>
                     <div className="retro-text text-lg">
                       DURATION: {currentSender.duration}s
@@ -501,31 +490,14 @@ const FuturisticHamRadio = () => {
               <div className="retro-text-orange text-lg mb-4 font-bold">TRANSMISSION CONTROL</div>
               
               <div className="bg-black rounded p-4 mb-6">
-                {isTransmitting ? (
-                  <div>
-                    <div className="retro-text text-2xl font-mono text-center mb-4">
-                      ● REC {transmissionTime.toFixed(1)}s
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div 
-                        className="bg-red-500 h-3 rounded-full transition-all duration-100"
-                        style={{ width: `${(transmissionTime / 30) * 100}%` }}
-                      ></div>
-                    </div>
-                    <div className="retro-text-orange text-sm text-center mt-2">
-                      MAX: 30s
-                    </div>
+                <div className="text-center">
+                  <div className="retro-text text-xl font-mono mb-3">
+                    ACCESS RESTRICTED
                   </div>
-                ) : (
-                  <div className="text-center">
-                    <div className="retro-text text-xl font-mono mb-3">
-                      READY TO TRANSMIT
-                    </div>
-                    <div className="retro-text-cyan">
-                      PRESS & HOLD PTT BUTTON
-                    </div>
+                  <div className="retro-text-cyan">
+                    FROSTY APE YETI MOB REQUIRED
                   </div>
-                )}
+                </div>
               </div>
 
               {/* Control Buttons */}
@@ -546,12 +518,7 @@ const FuturisticHamRadio = () => {
                 {/* PTT Button */}
                 <button
                   onClick={handleTransmit}
-                  disabled={isRecordingVoicemail}
-                  className={`ptt-button w-28 h-28 rounded-full flex items-center justify-center text-white font-bold transition-all duration-200 ${
-                    isRecordingVoicemail 
-                      ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:scale-105 active:scale-95'
-                  }`}
+                  className="ptt-button w-28 h-28 rounded-full flex items-center justify-center text-white font-bold transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   <div className="text-4xl">📡</div>
                 </button>
@@ -576,7 +543,7 @@ const FuturisticHamRadio = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="retro-text">STATUS:</span>
-                  <span className="text-green-400">AUTHENTICATED</span>
+                  <span className="text-red-400">RESTRICTED</span>
                 </div>
               </div>
             </div>
@@ -599,7 +566,7 @@ const FuturisticHamRadio = () => {
 
       {/* Activity Log */}
       <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(50vh-100px)]">
-        <div className="retro-text-orange text-lg mb-4 font-bold">COMMUNICATION ACTIVITY LOG</div>
+        <div className="retro-text-orange text-lg mb-4 font-bold">FROSTY APE YETI MOB COMMUNICATION LOG</div>
         <div 
           className="h-full overflow-y-auto custom-scrollbar"
           onScroll={handleScroll}
@@ -612,17 +579,20 @@ const FuturisticHamRadio = () => {
                   entry.type === 'own' ? 'bg-blue-500/10 border border-blue-500/30' :
                   entry.type === 'emergency' ? 'bg-red-500/10 border border-red-500/30' :
                   entry.type === 'voicemail' ? 'bg-purple-500/10 border border-purple-500/30' :
+                  entry.isYetiTech ? 'bg-orange-500/10 border border-orange-500/30' :
                   'bg-gray-500/10 border border-gray-500/20'
                 }`}
               >
                 <img 
                   src={entry.image}
-                  alt={`Yeti #${entry.tokenId}`}
+                  alt={entry.isYetiTech ? `Yeti Tech` : `Frosty Ape YETI Mob #${entry.tokenId}`}
                   className="w-12 h-12 rounded-full border-2 border-cyan-400/50"
                 />
                 <div className="flex-1">
                   <div className="flex items-center space-x-3">
-                    <span className="retro-text-cyan font-bold">YETI #{entry.tokenId}</span>
+                    <span className="retro-text-cyan font-bold">
+                      {entry.isYetiTech ? 'YETI TECH' : `YETI MOB #${entry.tokenId}`}
+                    </span>
                     <span className="retro-text text-sm">{formatDate(entry.timestamp)}</span>
                     <span className="retro-text text-sm">{formatTime(entry.timestamp)}</span>
                     <span className="retro-text-orange text-sm">{entry.duration}s</span>
@@ -636,6 +606,9 @@ const FuturisticHamRadio = () => {
                       <span className="text-purple-400 text-xs font-bold">
                         📧 VOICEMAIL → #{entry.calledNumber}
                       </span>
+                    )}
+                    {entry.isYetiTech && (
+                      <span className="text-orange-400 text-xs font-bold">YETI TECH COMM</span>
                     )}
                   </div>
                 </div>
