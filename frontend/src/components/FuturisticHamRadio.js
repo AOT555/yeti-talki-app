@@ -47,6 +47,16 @@ const FuturisticHamRadio = () => {
     };
   };
 
+  // Initialize with saved audio file
+  useEffect(() => {
+    const savedAudio = localStorage.getItem('yeti_call_audio');
+    const savedFileName = localStorage.getItem('yeti_call_audio_name');
+    if (savedAudio && savedFileName) {
+      setUploadedAudio(savedAudio);
+      setUploadedFileName(savedFileName);
+    }
+  }, []);
+
   // Initialize activity log
   useEffect(() => {
     const initialLog = Array.from({ length: 50 }, (_, i) => generateLogEntry(i));
