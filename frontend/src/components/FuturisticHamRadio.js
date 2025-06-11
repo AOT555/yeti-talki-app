@@ -19,6 +19,9 @@ const FuturisticHamRadio = () => {
   const [voicemailTime, setVoicemailTime] = useState(0);
   const [callingNumber, setCallingNumber] = useState(null);
   const [showAccessDenied, setShowAccessDenied] = useState(false);
+  const [uploadedAudio, setUploadedAudio] = useState(null);
+  const [uploadedFileName, setUploadedFileName] = useState('');
+  const [showUploadPanel, setShowUploadPanel] = useState(false);
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
