@@ -13,6 +13,11 @@ const FuturisticHamRadio = () => {
   const [frequencyBars, setFrequencyBars] = useState(Array(30).fill(0));
   const [activityLog, setActivityLog] = useState([]);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [showPhonePad, setShowPhonePad] = useState(false);
+  const [dialedNumber, setDialedNumber] = useState('');
+  const [isRecordingVoicemail, setIsRecordingVoicemail] = useState(false);
+  const [voicemailTime, setVoicemailTime] = useState(0);
+  const [callingNumber, setCallingNumber] = useState(null);
 
   // Sample Yeti NFT images for display
   const yetiNFTs = [
@@ -25,6 +30,8 @@ const FuturisticHamRadio = () => {
     const now = new Date();
     const randomMinutesAgo = Math.floor(Math.random() * 1440); // Up to 24 hours ago
     const timestamp = new Date(now.getTime() - randomMinutesAgo * 60000);
+    const types = ['normal', 'emergency', 'voicemail'];
+    const type = types[Math.floor(Math.random() * types.length)];
     
     return {
       id: id,
@@ -32,7 +39,8 @@ const FuturisticHamRadio = () => {
       image: yetiNFTs[Math.floor(Math.random() * yetiNFTs.length)],
       timestamp: timestamp,
       duration: (Math.random() * 25 + 2).toFixed(1), // 2-27 seconds
-      type: Math.random() > 0.8 ? 'emergency' : 'normal'
+      type: type,
+      calledNumber: type === 'voicemail' ? Math.floor(Math.random() * 5000) + 1 : null
     };
   };
 
@@ -96,6 +104,64 @@ const FuturisticHamRadio = () => {
     }
     
     return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  };
+
+  // Phone pad functions
+  const handleNumberClick = (num) => {
+    if (dialedNumber.length < 4) {
+      setDialedNumber(prev => prev + num);
+    }
+  };
+
+  const clearNumber = () => {
+    setDialedNumber('');
+  };
+
+  const backspace = () => {
+    setDialedNumber(prev => prev.slice(0, -1));
+  };
+
+  const makeCall = () => {
+    const number = parseInt(dialedNumber);
+    if (number >= 1 && number <= 5000) {
+      setCallingNumber(number);
+      setShowPhonePad(false);
+      setIsRecordingVoicemail(true);
+      setVoicemailTime(0);
+      
+      // Start voicemail timer
+      const timer = setInterval(() => {
+        setVoicemailTime(prev => {
+          if (prev >= 30) {
+            setIsRecordingVoicemail(false);
+            clearInterval(timer);
+            
+            // Add voicemail to activity log
+            const voicemailEntry = {
+              id: activityLog.length,
+              tokenId: user?.tokenId,
+              image: yetiNFTs[0],
+              timestamp: new Date(),
+              duration: prev.toFixed(1),
+              type: 'voicemail',
+              calledNumber: number
+            };
+            setActivityLog(prev => [voicemailEntry, ...prev]);
+            setCallingNumber(null);
+            setDialedNumber('');
+            return 0;
+          }
+          return prev + 0.1;
+        });
+      }, 100);
+    }
+  };
+
+  const hangUp = () => {
+    setIsRecordingVoicemail(false);
+    setVoicemailTime(0);
+    setCallingNumber(null);
+    setDialedNumber('');
   };
 
   const handleTransmit = () => {
@@ -168,6 +234,113 @@ const FuturisticHamRadio = () => {
       {/* Scan Line Effect */}
       <div className="scan-line fixed inset-0 pointer-events-none z-10"></div>
       
+      {/* Phone Pad Modal */}
+      {showPhonePad && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="nft-display-panel rounded-lg p-6 w-80">
+            <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
+              YETI CALL PAD
+            </div>
+            
+            {/* Number Display */}
+            <div className="bg-black rounded p-4 mb-4 text-center">
+              <div className="retro-text text-2xl font-mono">
+                {dialedNumber || '____'}
+              </div>
+              <div className="retro-text-orange text-xs mt-1">
+                ENTER YETI ID (1-5000)
+              </div>
+            </div>
+            
+            {/* Keypad */}
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              {[1,2,3,4,5,6,7,8,9,'*',0,'#'].map((key) => (
+                <button
+                  key={key}
+                  onClick={() => key !== '*' && key !== '#' && handleNumberClick(key.toString())}
+                  disabled={key === '*' || key === '#'}
+                  className={`retro-button h-12 font-bold text-lg ${
+                    key === '*' || key === '#' ? 'opacity-30 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+            
+            {/* Controls */}
+            <div className="flex space-x-3">
+              <button
+                onClick={backspace}
+                className="retro-button flex-1 py-2 text-sm font-bold"
+              >
+                ⌫ BACK
+              </button>
+              <button
+                onClick={clearNumber}
+                className="retro-button flex-1 py-2 text-sm font-bold"
+              >
+                CLEAR
+              </button>
+              <button
+                onClick={makeCall}
+                disabled={!dialedNumber || parseInt(dialedNumber) < 1 || parseInt(dialedNumber) > 5000}
+                className={`w-16 h-12 rounded font-bold ${
+                  dialedNumber && parseInt(dialedNumber) >= 1 && parseInt(dialedNumber) <= 5000
+                    ? 'bg-green-500 hover:bg-green-400 text-white'
+                    : 'bg-gray-500 opacity-50 cursor-not-allowed text-gray-300'
+                }`}
+              >
+                📞
+              </button>
+            </div>
+            
+            <button
+              onClick={() => setShowPhonePad(false)}
+              className="w-full mt-4 py-2 text-sm retro-text-cyan hover:text-white transition-colors"
+            >
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Voicemail Recording Modal */}
+      {isRecordingVoicemail && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="nft-display-panel rounded-lg p-8 w-96">
+            <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
+              VOICEMAIL TO YETI #{callingNumber}
+            </div>
+            
+            <div className="bg-black rounded p-6 mb-6 text-center">
+              <div className="retro-text text-xl font-mono mb-4">
+                ● REC {voicemailTime.toFixed(1)}s
+              </div>
+              <div className="w-full bg-gray-800 rounded-full h-3 mb-4">
+                <div 
+                  className="bg-red-500 h-3 rounded-full transition-all duration-100"
+                  style={{ width: `${(voicemailTime / 30) * 100}%` }}
+                ></div>
+              </div>
+              <div className="retro-text-orange text-sm">
+                RECORDING VOICEMAIL MESSAGE
+              </div>
+              <div className="retro-text-cyan text-xs mt-2">
+                MAX: 30 seconds
+              </div>
+            </div>
+            
+            <button
+              onClick={hangUp}
+              className="w-full bg-red-500 hover:bg-red-400 text-white py-3 rounded font-bold text-lg"
+            >
+              📞 HANG UP
+            </button>
+          </div>
+        </div>
+      )}
+      
       {/* Main Terminal Container */}
       <div className="retro-terminal flex-1 p-8 relative overflow-hidden">
         {/* Grid Overlay */}
@@ -178,9 +351,9 @@ const FuturisticHamRadio = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-6">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-                <span className="text-black font-bold text-lg">YT</span>
+                <span className="text-black font-bold text-lg">YC</span>
               </div>
-              <h1 className="retro-text text-4xl font-bold tracking-wider">YETI TALKI</h1>
+              <h1 className="retro-text text-4xl font-bold tracking-wider">YETI CALL</h1>
               <div className="flex items-center space-x-3 text-sm">
                 <span className="retro-text-orange">Built with</span>
                 <img 
@@ -208,11 +381,13 @@ const FuturisticHamRadio = () => {
               <div className={`w-4 h-4 rounded-full ${
                 isTransmitting ? 'transmitting-light' : 
                 isReceiving ? 'receiving-light' : 
+                isRecordingVoicemail ? 'transmitting-light' :
                 'standby-light'
               } status-light`}></div>
               <span className="text-lg font-bold">{
                 isTransmitting ? 'TRANSMITTING' : 
                 isReceiving ? 'RECEIVING' : 
+                isRecordingVoicemail ? 'VOICEMAIL' :
                 'STANDBY'
               }</span>
             </div>
@@ -266,24 +441,37 @@ const FuturisticHamRadio = () => {
             {/* Frequency Analyzer */}
             <div className="control-panel rounded-lg p-6 flex-1">
               <div className="retro-text-orange text-lg mb-4 font-bold">FREQUENCY ANALYZER</div>
-              <div className="flex items-end space-x-1 h-32">
+              <div className="flex items-end space-x-1 h-32 mb-4">
                 {frequencyBars.map((height, i) => (
                   <div
                     key={i}
                     className="signal-bars w-4 rounded-t transition-all duration-150"
                     style={{ 
                       height: `${height}%`,
-                      opacity: isTransmitting || isReceiving ? 1 : 0.7
+                      opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.7
                     }}
                   ></div>
                 ))}
               </div>
-              <div className="flex justify-between text-xs retro-text mt-2">
+              <div className="flex justify-between text-xs retro-text mb-4">
                 <span>20Hz</span>
                 <span>1kHz</span>
                 <span>10kHz</span>
                 <span>20kHz</span>
               </div>
+              
+              {/* Call Button */}
+              <button
+                onClick={() => setShowPhonePad(true)}
+                disabled={isTransmitting || isReceiving || isRecordingVoicemail}
+                className={`w-full py-3 rounded font-bold text-lg transition-all duration-200 ${
+                  isTransmitting || isReceiving || isRecordingVoicemail
+                    ? 'bg-gray-500 opacity-50 cursor-not-allowed text-gray-300'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white shadow-lg hover:shadow-xl'
+                }`}
+              >
+                📞 CALL YETI
+              </button>
             </div>
           </div>
 
@@ -326,9 +514,9 @@ const FuturisticHamRadio = () => {
                 {/* Play Button */}
                 <button
                   onClick={playMessage}
-                  disabled={!currentSender || isReceiving || isTransmitting}
+                  disabled={!currentSender || isReceiving || isTransmitting || isRecordingVoicemail}
                   className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
-                    !currentSender || isReceiving || isTransmitting
+                    !currentSender || isReceiving || isTransmitting || isRecordingVoicemail
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-110 active:scale-95'
                   }`}
@@ -339,7 +527,12 @@ const FuturisticHamRadio = () => {
                 {/* PTT Button */}
                 <button
                   onClick={handleTransmit}
-                  className="ptt-button w-28 h-28 rounded-full flex flex-col items-center justify-center text-white font-bold transition-all duration-200 hover:scale-105 active:scale-95"
+                  disabled={isRecordingVoicemail}
+                  className={`ptt-button w-28 h-28 rounded-full flex flex-col items-center justify-center text-white font-bold transition-all duration-200 ${
+                    isRecordingVoicemail 
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'hover:scale-105 active:scale-95'
+                  }`}
                 >
                   <div className="text-sm mb-1">PTT</div>
                   <div className="text-3xl">📡</div>
@@ -391,7 +584,7 @@ const FuturisticHamRadio = () => {
 
       {/* Activity Log */}
       <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(50vh-100px)]">
-        <div className="retro-text-orange text-lg mb-4 font-bold">TRANSMISSION ACTIVITY LOG</div>
+        <div className="retro-text-orange text-lg mb-4 font-bold">COMMUNICATION ACTIVITY LOG</div>
         <div 
           className="h-full overflow-y-auto custom-scrollbar"
           onScroll={handleScroll}
@@ -403,6 +596,7 @@ const FuturisticHamRadio = () => {
                 className={`flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:bg-white/5 ${
                   entry.type === 'own' ? 'bg-blue-500/10 border border-blue-500/30' :
                   entry.type === 'emergency' ? 'bg-red-500/10 border border-red-500/30' :
+                  entry.type === 'voicemail' ? 'bg-purple-500/10 border border-purple-500/30' :
                   'bg-gray-500/10 border border-gray-500/20'
                 }`}
               >
@@ -422,6 +616,11 @@ const FuturisticHamRadio = () => {
                     )}
                     {entry.type === 'emergency' && (
                       <span className="text-red-400 text-xs font-bold animate-pulse">EMERGENCY</span>
+                    )}
+                    {entry.type === 'voicemail' && (
+                      <span className="text-purple-400 text-xs font-bold">
+                        📧 VOICEMAIL → #{entry.calledNumber}
+                      </span>
                     )}
                   </div>
                 </div>
