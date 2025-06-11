@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
-const WalletConnection: React.FC = () => {
+const WalletConnection = () => {
   const { connectWallet, isLoading, error } = useAuth();
 
   return (
