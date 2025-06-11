@@ -622,7 +622,7 @@ const FuturisticHamRadio = () => {
                       <div className="text-green-200 text-xs truncate">{uploadedFileName}</div>
                     </div>
                     <button
-                      onClick={clearUploadedAudio}
+                      onClick={replaceAudio}
                       className="text-red-400 hover:text-red-300 text-sm"
                     >
                       ✕
