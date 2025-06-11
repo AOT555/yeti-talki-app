@@ -234,6 +234,48 @@ const FuturisticHamRadio = () => {
       {/* Scan Line Effect */}
       <div className="scan-line fixed inset-0 pointer-events-none z-10"></div>
       
+      {/* Audio Upload Panel */}
+      {showUploadPanel && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="nft-display-panel rounded-lg p-6 w-96">
+            <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
+              AUDIO UPLOAD SYSTEM
+            </div>
+            
+            <div className="bg-black rounded-lg p-6 mb-4 text-center border border-cyan-400/50">
+              <div className="text-4xl mb-4">🎵</div>
+              <div className="retro-text text-lg mb-4">
+                Upload Music File
+              </div>
+              <div className="retro-text-orange text-sm mb-4">
+                Supported: MP3, WAV, OGG, M4A
+              </div>
+              
+              <input
+                type="file"
+                accept="audio/*"
+                onChange={handleFileUpload}
+                className="hidden"
+                id="audioUpload"
+              />
+              <label
+                htmlFor="audioUpload"
+                className="retro-button inline-block py-3 px-6 rounded font-bold cursor-pointer hover:scale-105 transition-transform"
+              >
+                📁 SELECT AUDIO FILE
+              </label>
+            </div>
+            
+            <button
+              onClick={() => setShowUploadPanel(false)}
+              className="w-full py-2 text-sm retro-text-cyan hover:text-white transition-colors"
+            >
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Access Denied Popup */}
       {showAccessDenied && (
         <div className="fixed inset-0 bg-red-900/80 flex items-center justify-center z-50 animate-pulse">
