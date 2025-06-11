@@ -22,32 +22,15 @@ const WalletConnection = () => {
         <p className="text-white/60 text-sm">
           Exclusive access for Frosty Ape Yeti holders
         </p>
-      </div>
-
-      {/* Connection Instructions */}
-      <div className="bg-white/5 rounded-2xl p-6 mb-6 border border-white/10">
-        <h2 className="text-white font-semibold mb-4 flex items-center">
-          <span className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
-          How to Connect
-        </h2>
-        <ol className="text-white/80 text-sm space-y-2">
-          <li className="flex items-start">
-            <span className="inline-block w-5 h-5 bg-white/20 rounded-full text-xs text-center leading-5 mr-3 mt-0.5 flex-shrink-0">1</span>
-            <span>Connect your MetaMask wallet</span>
-          </li>
-          <li className="flex items-start">
-            <span className="inline-block w-5 h-5 bg-white/20 rounded-full text-xs text-center leading-5 mr-3 mt-0.5 flex-shrink-0">2</span>
-            <span>Sign the verification message</span>
-          </li>
-          <li className="flex items-start">
-            <span className="inline-block w-5 h-5 bg-white/20 rounded-full text-xs text-center leading-5 mr-3 mt-0.5 flex-shrink-0">3</span>
-            <span>Your Frosty Ape Yeti NFT will be verified</span>
-          </li>
-          <li className="flex items-start">
-            <span className="inline-block w-5 h-5 bg-white/20 rounded-full text-xs text-center leading-5 mr-3 mt-0.5 flex-shrink-0">4</span>
-            <span>Start talking with the community!</span>
-          </li>
-        </ol>
+        <div className="flex items-center justify-center space-x-2 text-white/50 text-xs mt-2">
+          <span>Built with</span>
+          <img 
+            src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
+            alt="Yeti Tech" 
+            className="w-4 h-4 rounded-full border border-white/30"
+          />
+          <span>Yeti Tech 🐾</span>
+        </div>
       </div>
 
       {/* Error Message */}
