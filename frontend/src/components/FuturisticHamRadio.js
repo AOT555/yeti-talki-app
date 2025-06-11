@@ -529,17 +529,13 @@ const FuturisticHamRadio = () => {
                 <button
                   onClick={handleTransmit}
                   disabled={isRecordingVoicemail}
-                  className={`ptt-button w-28 h-28 rounded-full flex flex-col items-center justify-center text-white font-bold transition-all duration-200 ${
+                  className={`ptt-button w-28 h-28 rounded-full flex items-center justify-center text-white font-bold transition-all duration-200 ${
                     isRecordingVoicemail 
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-105 active:scale-95'
                   }`}
                 >
-                  <div className="text-sm mb-1">PTT</div>
-                  <div className="text-3xl">📡</div>
-                  <div className="text-sm mt-1">
-                    {isTransmitting ? 'XMIT' : 'PUSH'}
-                  </div>
+                  <div className="text-4xl">📡</div>
                 </button>
               </div>
             </div>
