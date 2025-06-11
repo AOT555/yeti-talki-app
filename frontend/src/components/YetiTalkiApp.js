@@ -5,7 +5,7 @@ import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { WebSocketProvider } from '../contexts/WebSocketContext';
 import LoadingSpinner from './LoadingSpinner';
 
-const YetiTalkiApp: React.FC = () => {
+const YetiTalkiApp = () => {
   return (
     <AuthProvider>
       <div className="min-h-screen bg-ice-gradient flex items-center justify-center p-4">
@@ -15,7 +15,7 @@ const YetiTalkiApp: React.FC = () => {
   );
 };
 
-const AppContent: React.FC = () => {
+const AppContent = () => {
   const { isAuthenticated, isLoading, user } = useAuth();
 
   if (isLoading) {
@@ -44,6 +44,15 @@ const AppContent: React.FC = () => {
           <p className="text-white/60 text-xs mt-1">
             Web3 Community Walkie-Talkie
           </p>
+          <div className="flex items-center justify-center space-x-2 text-white/50 text-xs mt-2">
+            <span>Built with</span>
+            <img 
+              src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
+              alt="Yeti Tech" 
+              className="w-4 h-4 rounded-full border border-white/30"
+            />
+            <span>Yeti Tech 🐾</span>
+          </div>
         </div>
         
         <WalkieTalkieInterface />
