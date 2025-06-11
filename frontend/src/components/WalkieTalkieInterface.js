@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useWebSocket } from '../contexts/WebSocketContext';
 import { useAuth } from '../contexts/AuthContext';
 
-const WalkieTalkieInterface: React.FC = () => {
+const WalkieTalkieInterface = () => {
   const { user, disconnect } = useAuth();
   const { isConnected, lastMessage, hasNewMessage, markMessageAsPlayed, sendAudioMessage } = useWebSocket();
   
