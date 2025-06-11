@@ -2,24 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
-interface User {
-  walletAddress: string;
-  tokenId: number;
-  accessToken: string;
-}
+const AuthContext = createContext(undefined);
 
-interface AuthContextType {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  connectWallet: () => Promise<void>;
-  disconnect: () => void;
-  error: string | null;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
@@ -27,14 +12,10 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   const BACKEND_URL = process.env.REACT_APP_YETI_BACKEND_URL || 'http://localhost:8002';
 
@@ -52,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const connectWallet = async (): Promise<void> => {
+  const connectWallet = async () => {
     setIsLoading(true);
     setError(null);
 
@@ -88,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (response.data.success) {
-        const userData: User = {
+        const userData = {
           walletAddress: response.data.wallet_address,
           tokenId: response.data.token_id,
           accessToken: response.data.access_token
@@ -100,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw new Error(response.data.message || 'Authentication failed');
       }
 
-    } catch (err: any) {
+    } catch (err) {
       console.error('Wallet connection error:', err);
       
       if (err.code === 4001) {
@@ -115,12 +96,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const disconnect = (): void => {
+  const disconnect = () => {
     setUser(null);
     localStorage.removeItem('yeti_user');
   };
 
-  const value: AuthContextType = {
+  const value = {
     user,
     isAuthenticated: !!user,
     isLoading,
@@ -135,10 +116,3 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}
