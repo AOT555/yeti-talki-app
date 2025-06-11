@@ -224,8 +224,15 @@ const FuturisticHamRadio = () => {
     if (file && file.type.startsWith('audio/')) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setUploadedAudio(e.target.result);
-        setUploadedFileName(file.name);
+        const audioData = e.target.result;
+        const fileName = file.name;
+        
+        // Save to localStorage for persistence
+        localStorage.setItem('yeti_call_audio', audioData);
+        localStorage.setItem('yeti_call_audio_name', fileName);
+        
+        setUploadedAudio(audioData);
+        setUploadedFileName(fileName);
         setShowUploadPanel(false);
       };
       reader.readAsDataURL(file);
@@ -234,9 +241,13 @@ const FuturisticHamRadio = () => {
     }
   };
 
-  const clearUploadedAudio = () => {
+  const replaceAudio = () => {
+    // Clear current audio and show upload panel
+    localStorage.removeItem('yeti_call_audio');
+    localStorage.removeItem('yeti_call_audio_name');
     setUploadedAudio(null);
     setUploadedFileName('');
+    setShowUploadPanel(true);
   };
 
   return (
