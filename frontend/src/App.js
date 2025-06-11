@@ -66,7 +66,7 @@ function App() {
         </div>
 
         <div className="mt-8 text-white/50 text-xs">
-          <p>Powered by Ape Chain • Built with React + FastAPI</p>
+          <p>Powered by Ape Chain • Built with Yeti Tech 🐾</p>
           <p className="mt-2">
             <a 
               href="https://x.com/FrostyApeYeti" 
