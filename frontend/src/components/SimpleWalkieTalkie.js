@@ -2,25 +2,55 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
 const WalkieTalkieInterface = () => {
-  const { user, disconnect } = useAuth();
+  const { user, disconnect, demoMode } = useAuth();
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [hasMessage, setHasMessage] = useState(false);
 
   const handlePTTClick = () => {
     if (isRecording) {
       setIsRecording(false);
+      setRecordingTime(0);
       console.log('Stopped recording');
+      
+      // In demo mode, simulate message sent
+      if (demoMode) {
+        setTimeout(() => {
+          setHasMessage(true);
+        }, 500);
+      }
     } else {
       setIsRecording(true);
       console.log('Started recording');
+      
+      // In demo mode, simulate recording timer
+      if (demoMode) {
+        const timer = setInterval(() => {
+          setRecordingTime(prev => {
+            if (prev >= 5) {
+              setIsRecording(false);
+              clearInterval(timer);
+              setTimeout(() => setHasMessage(true), 500);
+              return 0;
+            }
+            return prev + 0.1;
+          });
+        }, 100);
+      }
     }
   };
 
   const handlePlayClick = () => {
-    if (!isPlaying) {
+    if (!isPlaying && hasMessage) {
       setIsPlaying(true);
       console.log('Playing last message');
-      setTimeout(() => setIsPlaying(false), 2000);
+      
+      // In demo mode, simulate playback
+      setTimeout(() => {
+        setIsPlaying(false);
+        setHasMessage(false);
+      }, 3000);
     }
   };
 
@@ -30,7 +60,7 @@ const WalkieTalkieInterface = () => {
       <div className="text-center mb-6">
         <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-500/20 text-green-200 border border-green-500/40">
           <div className="w-2 h-2 rounded-full mr-2 bg-green-400 animate-pulse"></div>
-          Connected to Channel
+          {demoMode ? 'Demo Channel Ready' : 'Connected to Channel'}
         </div>
       </div>
 
@@ -49,9 +79,13 @@ const WalkieTalkieInterface = () => {
                 <div 
                   key={i} 
                   className={`h-1 rounded-full transition-all duration-150 ${
-                    isRecording 
-                      ? 'bg-red-400 animate-pulse' 
-                      : 'bg-gray-600'
+                    hasMessage
+                      ? 'bg-green-400 animate-pulse'
+                      : isRecording 
+                        ? 'bg-red-400 animate-pulse' 
+                        : isPlaying
+                          ? 'bg-blue-400 animate-pulse'
+                          : 'bg-gray-600'
                   }`}
                 ></div>
               ))}
@@ -60,10 +94,16 @@ const WalkieTalkieInterface = () => {
           
           {/* Status Indicators */}
           <div className="flex justify-center mt-4 space-x-4">
+            {hasMessage && !isPlaying && (
+              <div className="receiving-indicator w-3 h-3 rounded-full status-light"></div>
+            )}
             {isRecording && (
               <div className="transmitting-indicator w-3 h-3 rounded-full status-light"></div>
             )}
-            {!isRecording && (
+            {isPlaying && (
+              <div className="w-3 h-3 rounded-full bg-blue-400 status-light animate-pulse"></div>
+            )}
+            {!hasMessage && !isRecording && !isPlaying && (
               <div className="w-3 h-3 rounded-full bg-yellow-400/60 status-light"></div>
             )}
           </div>
@@ -75,12 +115,29 @@ const WalkieTalkieInterface = () => {
             {isRecording ? (
               <div>
                 <p className="text-red-300 font-mono text-lg">REC</p>
-                <p className="text-white/80 text-sm">Recording...</p>
+                <p className="text-white/80 text-sm">{recordingTime.toFixed(1)}s / 30s</p>
+                <div className="w-full bg-gray-700 rounded-full h-1 mt-2">
+                  <div 
+                    className="bg-red-400 h-1 rounded-full transition-all duration-100"
+                    style={{ width: `${(recordingTime / 30) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
+            ) : hasMessage ? (
+              <div>
+                <p className="text-green-300 font-mono text-lg">NEW MSG</p>
+                <p className="text-white/80 text-xs">From Yeti #{Math.floor(Math.random() * 5000) + 1}</p>
+                <p className="text-white/60 text-xs">3.2s</p>
+              </div>
+            ) : isPlaying ? (
+              <div>
+                <p className="text-blue-300 font-mono text-lg">PLAY</p>
+                <p className="text-white/80 text-sm">Playing message...</p>
               </div>
             ) : (
               <div>
                 <p className="text-white/80 font-mono">STANDBY</p>
-                <p className="text-white/60 text-xs">Ready to transmit</p>
+                <p className="text-white/60 text-xs">{demoMode ? 'Demo ready' : 'Ready to transmit'}</p>
               </div>
             )}
           </div>
@@ -91,9 +148,9 @@ const WalkieTalkieInterface = () => {
           {/* Play Button */}
           <button
             onClick={handlePlayClick}
-            disabled={isPlaying || isRecording}
+            disabled={!hasMessage || isPlaying || isRecording}
             className={`play-button w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-white/30 transition-all duration-200 ${
-              isPlaying || isRecording
+              !hasMessage || isPlaying || isRecording
                 ? 'opacity-50 cursor-not-allowed'
                 : 'hover:scale-110 active:scale-95 shadow-lg'
             }`}
@@ -120,9 +177,30 @@ const WalkieTalkieInterface = () => {
           <p className="mb-1">
             {isRecording ? 'Click to stop recording' : 'Click PTT to talk'}
           </p>
-          <p>Max 30 seconds per message</p>
+          {demoMode ? (
+            <p>Demo: Simulated 30s messages</p>
+          ) : (
+            <p>Max 30 seconds per message</p>
+          )}
         </div>
       </div>
+
+      {/* Demo Info */}
+      {demoMode && (
+        <div className="bg-blue-500/20 border border-blue-500/40 rounded-xl p-4 mt-6 text-center">
+          <p className="text-blue-200 text-sm font-medium mb-2">
+            🎮 Interactive Demo
+          </p>
+          <p className="text-blue-200/80 text-xs mb-2">
+            • Click PTT to simulate recording<br/>
+            • Messages appear automatically<br/>
+            • Click play to simulate playback
+          </p>
+          <p className="text-blue-200/60 text-xs">
+            Full Web3 functionality available when live!
+          </p>
+        </div>
+      )}
 
       {/* Disconnect Button */}
       <div className="text-center mt-8">
@@ -130,7 +208,7 @@ const WalkieTalkieInterface = () => {
           onClick={disconnect}
           className="text-white/60 hover:text-white/80 text-sm underline transition-colors"
         >
-          Disconnect Wallet
+          {demoMode ? 'Restart Demo' : 'Disconnect Wallet'}
         </button>
       </div>
     </div>
