@@ -173,13 +173,60 @@ const FuturisticHamRadio = () => {
   };
 
   const playMessage = () => {
-    if (currentSender && !isReceiving) {
+    if (uploadedAudio && !isReceiving) {
+      setIsReceiving(true);
+      const audio = new Audio(uploadedAudio);
+      
+      audio.onended = () => {
+        setIsReceiving(false);
+        setCurrentSender(null);
+      };
+
+      audio.onerror = () => {
+        setIsReceiving(false);
+        setCurrentSender(null);
+        console.error('Error playing uploaded audio');
+      };
+
+      // Show a mock sender when playing uploaded audio
+      setCurrentSender({
+        tokenId: 'UPLOAD',
+        image: frostyApeYetiMobLogo,
+        duration: 'N/A'
+      });
+
+      audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+        setIsReceiving(false);
+        setCurrentSender(null);
+      });
+    } else if (currentSender && !isReceiving && !uploadedAudio) {
       setIsReceiving(true);
       setTimeout(() => {
         setIsReceiving(false);
         setCurrentSender(null);
       }, currentSender.duration * 1000);
     }
+  };
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('audio/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedAudio(e.target.result);
+        setUploadedFileName(file.name);
+        setShowUploadPanel(false);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please select a valid audio file (MP3, WAV, etc.)');
+    }
+  };
+
+  const clearUploadedAudio = () => {
+    setUploadedAudio(null);
+    setUploadedFileName('');
   };
 
   return (
