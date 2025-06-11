@@ -187,7 +187,7 @@ const FuturisticHamRadio = () => {
       {/* Access Denied Popup */}
       {showAccessDenied && (
         <div className="fixed inset-0 bg-red-900/80 flex items-center justify-center z-50 animate-pulse">
-          <div className="bg-black border-4 border-red-500 rounded-lg p-8 max-w-md text-center shadow-2xl animate-bounce">
+          <div className="bg-black border-4 border-red-500 rounded-lg p-8 max-w-md text-center shadow-2xl">
             <div className="text-red-500 text-6xl mb-4">⚠️</div>
             <div className="text-red-400 text-3xl font-bold mb-4 animate-pulse">
               ACCESS DENIED
@@ -195,7 +195,7 @@ const FuturisticHamRadio = () => {
             <img 
               src={frostyApeYetiMobLogo}
               alt="Frosty Ape YETI Mob" 
-              className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-500 animate-spin"
+              className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-500"
             />
             <div className="text-red-300 text-xl font-bold mb-4">
               MUST HAVE
