@@ -7,8 +7,8 @@ function App() {
       <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 max-w-2xl text-center">
         <div className="mb-8">
           <img 
-            src="https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg" 
-            alt="Frosty Ape Yeti" 
+            src="https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg" 
+            alt="Yeti Tech" 
             className="w-24 h-24 rounded-full mx-auto mb-6 shadow-xl border-4 border-white/50"
           />
           <h1 className="text-5xl font-bold text-white mb-4 text-shadow-lg">
@@ -19,6 +19,9 @@ function App() {
           </p>
           <p className="text-white/70 text-lg">
             Built for Frosty Ape Yeti NFT Holders
+          </p>
+          <p className="text-white/60 text-sm mt-3 font-medium">
+            Built with Yeti Tech 🐾
           </p>
         </div>
 
