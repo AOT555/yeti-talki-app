@@ -216,6 +216,6 @@ user_problem_statement: "Build and deploy a mobile app - Yeti Talki: A Web3 Comm
 
 ## agent_communication:
     - agent: "main"
-    - message: "Successfully built complete Yeti Talki Web3 walkie-talkie application. Backend API running on port 8002 with NFT verification, audio messaging, and WebSocket support. Frontend React app running on port 3001 with beautiful ice glacier interface, MetaMask integration, and real-time communication. Ready for testing and deployment."
+    - message: "Successfully connected Yeti Talki frontend to backend! Frontend is now accessible via Preview button on port 3000. Complete Web3 walkie-talkie application with MetaMask integration, ice glacier interface, and real-time communication is ready for testing. Backend API running on port 8002. Both services tested and operational."
     - agent: "testing"
     - message: "Completed comprehensive testing of the Yeti Talki backend API. All endpoints are functioning correctly including health check, community stats, NFT verification, user profile, audio broadcasting, and WebSocket connections. The backend is properly handling authentication, data storage, and real-time communication. No critical issues were found during testing."
