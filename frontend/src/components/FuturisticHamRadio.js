@@ -439,9 +439,9 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Frequency Analyzer */}
-            <div className="control-panel rounded-lg p-6 flex-1">
+            <div className="control-panel rounded-lg p-6">
               <div className="retro-text-orange text-lg mb-4 font-bold">FREQUENCY ANALYZER</div>
-              <div className="flex items-end space-x-1 h-32 mb-4">
+              <div className="flex items-end space-x-1 h-32">
                 {frequencyBars.map((height, i) => (
                   <div
                     key={i}
@@ -453,26 +453,27 @@ const FuturisticHamRadio = () => {
                   ></div>
                 ))}
               </div>
-              <div className="flex justify-between text-xs retro-text mb-4">
+              <div className="flex justify-between text-xs retro-text mt-2">
                 <span>20Hz</span>
                 <span>1kHz</span>
                 <span>10kHz</span>
                 <span>20kHz</span>
               </div>
-              
-              {/* Call Button */}
-              <button
-                onClick={() => setShowPhonePad(true)}
-                disabled={isTransmitting || isReceiving || isRecordingVoicemail}
-                className={`w-full py-3 rounded font-bold text-lg transition-all duration-200 ${
-                  isTransmitting || isReceiving || isRecordingVoicemail
-                    ? 'bg-gray-500 opacity-50 cursor-not-allowed text-gray-300'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white shadow-lg hover:shadow-xl'
-                }`}
-              >
-                📞 CALL YETI
-              </button>
             </div>
+
+            {/* Call Button */}
+            <button
+              onClick={() => setShowPhonePad(true)}
+              disabled={isTransmitting || isReceiving || isRecordingVoicemail}
+              className={`control-panel w-full py-4 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 ${
+                isTransmitting || isReceiving || isRecordingVoicemail
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:scale-105 active:scale-95 hover:shadow-xl'
+              }`}
+            >
+              <span className="text-2xl">📞</span>
+              <span className="retro-text-orange">CALL</span>
+            </button>
           </div>
 
           {/* Right Panel - Controls */}
