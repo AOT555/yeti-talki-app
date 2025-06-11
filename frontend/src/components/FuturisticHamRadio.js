@@ -592,14 +592,32 @@ const FuturisticHamRadio = () => {
                 </div>
               </div>
 
+              {/* Audio Upload Status */}
+              {uploadedAudio && (
+                <div className="bg-green-500/20 border border-green-500/40 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-green-300 text-sm font-bold">🎵 AUDIO LOADED</div>
+                      <div className="text-green-200 text-xs truncate">{uploadedFileName}</div>
+                    </div>
+                    <button
+                      onClick={clearUploadedAudio}
+                      className="text-red-400 hover:text-red-300 text-sm"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+
               {/* Control Buttons */}
               <div className="flex justify-center space-x-8">
                 {/* Play Button */}
                 <button
                   onClick={playMessage}
-                  disabled={!currentSender || isReceiving || isTransmitting || isRecordingVoicemail}
+                  disabled={(!currentSender && !uploadedAudio) || isReceiving || isTransmitting || isRecordingVoicemail}
                   className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
-                    !currentSender || isReceiving || isTransmitting || isRecordingVoicemail
+                    (!currentSender && !uploadedAudio) || isReceiving || isTransmitting || isRecordingVoicemail
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-110 active:scale-95'
                   }`}
@@ -613,6 +631,22 @@ const FuturisticHamRadio = () => {
                   className="ptt-button w-28 h-28 rounded-full flex items-center justify-center text-white font-bold transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   <div className="text-4xl">📡</div>
+                </button>
+              </div>
+
+              {/* Upload Button */}
+              <div className="mt-4">
+                <button
+                  onClick={() => setShowUploadPanel(true)}
+                  disabled={isReceiving || isTransmitting || isRecordingVoicemail}
+                  className={`w-full py-3 rounded font-bold text-lg transition-all duration-200 flex items-center justify-center space-x-3 ${
+                    isReceiving || isTransmitting || isRecordingVoicemail
+                      ? 'opacity-50 cursor-not-allowed bg-gray-500'
+                      : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white hover:scale-105'
+                  }`}
+                >
+                  <span className="text-xl">🎵</span>
+                  <span>UPLOAD AUDIO</span>
                 </button>
               </div>
             </div>
