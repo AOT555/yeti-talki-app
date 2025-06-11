@@ -1,29 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
 
-interface AudioMessage {
-  id: string;
-  nft_token_id: number;
-  wallet_address: string;
-  audio_data: string;
-  duration: number;
-  timestamp: string;
-  message_type: string;
-}
+const WebSocketContext = createContext(undefined);
 
-interface WebSocketContextType {
-  socket: Socket | null;
-  isConnected: boolean;
-  lastMessage: AudioMessage | null;
-  hasNewMessage: boolean;
-  markMessageAsPlayed: () => void;
-  sendAudioMessage: (audioData: string, duration: number) => Promise<void>;
-}
-
-const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
-
-export const useWebSocket = (): WebSocketContextType => {
+export const useWebSocket = () => {
   const context = useContext(WebSocketContext);
   if (!context) {
     throw new Error('useWebSocket must be used within a WebSocketProvider');
@@ -31,15 +12,11 @@ export const useWebSocket = (): WebSocketContextType => {
   return context;
 };
 
-interface WebSocketProviderProps {
-  children: React.ReactNode;
-}
-
-export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
+export const WebSocketProvider = ({ children }) => {
   const { user } = useAuth();
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [lastMessage, setLastMessage] = useState<AudioMessage | null>(null);
+  const [lastMessage, setLastMessage] = useState(null);
   const [hasNewMessage, setHasNewMessage] = useState(false);
 
   const WS_URL = process.env.REACT_APP_YETI_WS_URL || 'ws://localhost:8002';
@@ -65,7 +42,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
       setIsConnected(false);
     });
 
-    newSocket.on('audio_message', (data: AudioMessage) => {
+    newSocket.on('audio_message', (data) => {
       console.log('Received audio message:', data);
       setLastMessage(data);
       setHasNewMessage(true);
@@ -90,7 +67,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
 
   const playNotificationSound = () => {
     // Create a simple beep sound for incoming messages
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -107,11 +84,11 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
     oscillator.stop(audioContext.currentTime + 0.3);
   };
 
-  const markMessageAsPlayed = (): void => {
+  const markMessageAsPlayed = () => {
     setHasNewMessage(false);
   };
 
-  const sendAudioMessage = async (audioData: string, duration: number): Promise<void> => {
+  const sendAudioMessage = async (audioData, duration) => {
     if (!socket || !isConnected) {
       throw new Error('Not connected to server');
     }
@@ -143,7 +120,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
     }
   };
 
-  const value: WebSocketContextType = {
+  const value = {
     socket,
     isConnected,
     lastMessage,
