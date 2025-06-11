@@ -11,12 +11,36 @@ const FuturisticHamRadio = () => {
   const [signalStrength] = useState(85);
   const [activeUsers] = useState(23);
   const [frequencyBars, setFrequencyBars] = useState(Array(30).fill(0));
+  const [activityLog, setActivityLog] = useState([]);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   // Sample Yeti NFT images for display
   const yetiNFTs = [
     'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg',
     'https://pbs.twimg.com/profile_images/1932591648753467392/wQRSESav_400x400.jpg'
   ];
+
+  // Generate mock activity log entries
+  const generateLogEntry = (id) => {
+    const now = new Date();
+    const randomMinutesAgo = Math.floor(Math.random() * 1440); // Up to 24 hours ago
+    const timestamp = new Date(now.getTime() - randomMinutesAgo * 60000);
+    
+    return {
+      id: id,
+      tokenId: Math.floor(Math.random() * 5000) + 1,
+      image: yetiNFTs[Math.floor(Math.random() * yetiNFTs.length)],
+      timestamp: timestamp,
+      duration: (Math.random() * 25 + 2).toFixed(1), // 2-27 seconds
+      type: Math.random() > 0.8 ? 'emergency' : 'normal'
+    };
+  };
+
+  // Initialize activity log
+  useEffect(() => {
+    const initialLog = Array.from({ length: 50 }, (_, i) => generateLogEntry(i));
+    setActivityLog(initialLog);
+  }, []);
 
   // Animate frequency bars
   useEffect(() => {
@@ -29,20 +53,88 @@ const FuturisticHamRadio = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Load more activity log entries
+  const loadMoreEntries = () => {
+    if (loadingMore) return;
+    
+    setLoadingMore(true);
+    setTimeout(() => {
+      const newEntries = Array.from({ length: 20 }, (_, i) => 
+        generateLogEntry(activityLog.length + i)
+      );
+      setActivityLog(prev => [...prev, ...newEntries]);
+      setLoadingMore(false);
+    }, 500);
+  };
+
+  // Handle scroll for infinite loading
+  const handleScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    if (scrollHeight - scrollTop === clientHeight) {
+      loadMoreEntries();
+    }
+  };
+
+  const formatTime = (date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const formatDate = (date) => {
+    const today = new Date();
+    const isToday = date.toDateString() === today.toDateString();
+    
+    if (isToday) {
+      return 'TODAY';
+    }
+    
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const isYesterday = date.toDateString() === yesterday.toDateString();
+    
+    if (isYesterday) {
+      return 'YESTERDAY';
+    }
+    
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  };
+
   const handleTransmit = () => {
     if (isTransmitting) {
       setIsTransmitting(false);
       setTransmissionTime(0);
       
+      // Add new entry to activity log
+      const newEntry = {
+        id: activityLog.length,
+        tokenId: user?.tokenId,
+        image: yetiNFTs[0], // Use first image for user
+        timestamp: new Date(),
+        duration: transmissionTime.toFixed(1),
+        type: 'own'
+      };
+      setActivityLog(prev => [newEntry, ...prev]);
+      
       // Simulate incoming message after transmission
       setTimeout(() => {
-        setCurrentSender({
+        const sender = {
           tokenId: Math.floor(Math.random() * 5000) + 1,
           image: yetiNFTs[Math.floor(Math.random() * yetiNFTs.length)],
           duration: 4.2
-        });
+        };
+        setCurrentSender(sender);
         setIsReceiving(true);
         setTimeout(() => setIsReceiving(false), 4200);
+        
+        // Add incoming message to log
+        const incomingEntry = {
+          id: activityLog.length + 1,
+          tokenId: sender.tokenId,
+          image: sender.image,
+          timestamp: new Date(),
+          duration: sender.duration.toFixed(1),
+          type: 'normal'
+        };
+        setActivityLog(prev => [incomingEntry, ...prev]);
       }, 800);
     } else {
       setIsTransmitting(true);
@@ -72,12 +164,12 @@ const FuturisticHamRadio = () => {
   };
 
   return (
-    <div className="fixed inset-0 overflow-auto">
+    <div className="fixed inset-0 overflow-hidden flex flex-col">
       {/* Scan Line Effect */}
       <div className="scan-line fixed inset-0 pointer-events-none z-10"></div>
       
-      {/* Main Terminal Container - Full Screen */}
-      <div className="retro-terminal min-h-screen p-8 relative overflow-hidden">
+      {/* Main Terminal Container */}
+      <div className="retro-terminal flex-1 p-8 relative overflow-hidden">
         {/* Grid Overlay */}
         <div className="grid-overlay absolute inset-0 opacity-30"></div>
         
@@ -127,7 +219,7 @@ const FuturisticHamRadio = () => {
           </div>
         </div>
 
-        <div className="relative z-20 grid grid-cols-2 gap-8 h-[calc(100vh-200px)]">
+        <div className="relative z-20 grid grid-cols-2 gap-8 h-[calc(50vh-100px)]">
           {/* Left Panel - NFT Display */}
           <div className="space-y-6">
             {/* Large NFT Display Panel */}
@@ -293,6 +385,53 @@ const FuturisticHamRadio = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Activity Log */}
+      <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(50vh-100px)]">
+        <div className="retro-text-orange text-lg mb-4 font-bold">TRANSMISSION ACTIVITY LOG</div>
+        <div 
+          className="h-full overflow-y-auto custom-scrollbar"
+          onScroll={handleScroll}
+        >
+          <div className="space-y-3">
+            {activityLog.map((entry) => (
+              <div 
+                key={entry.id} 
+                className={`flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:bg-white/5 ${
+                  entry.type === 'own' ? 'bg-blue-500/10 border border-blue-500/30' :
+                  entry.type === 'emergency' ? 'bg-red-500/10 border border-red-500/30' :
+                  'bg-gray-500/10 border border-gray-500/20'
+                }`}
+              >
+                <img 
+                  src={entry.image}
+                  alt={`Yeti #${entry.tokenId}`}
+                  className="w-12 h-12 rounded-full border-2 border-cyan-400/50"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3">
+                    <span className="retro-text-cyan font-bold">YETI #{entry.tokenId}</span>
+                    <span className="retro-text text-sm">{formatDate(entry.timestamp)}</span>
+                    <span className="retro-text text-sm">{formatTime(entry.timestamp)}</span>
+                    <span className="retro-text-orange text-sm">{entry.duration}s</span>
+                    {entry.type === 'own' && (
+                      <span className="text-blue-400 text-xs font-bold">YOUR TRANSMISSION</span>
+                    )}
+                    {entry.type === 'emergency' && (
+                      <span className="text-red-400 text-xs font-bold animate-pulse">EMERGENCY</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+            {loadingMore && (
+              <div className="text-center py-4">
+                <div className="retro-text-cyan text-sm animate-pulse">LOADING MORE TRANSMISSIONS...</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
