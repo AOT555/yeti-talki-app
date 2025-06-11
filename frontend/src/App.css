@@ -2,6 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, #E8F4FD 0%, #7DD3FC 50%, #0EA5E9 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .walkie-talkie-body {
+    background: linear-gradient(145deg, #F8FAFC 0%, #E8F4FD 20%, #7DD3FC 60%, #0EA5E9 100%);
+    box-shadow: 
+      inset 0 4px 8px rgba(255, 255, 255, 0.5),
+      inset 0 -4px 8px rgba(0, 0, 0, 0.1),
+      0 20px 40px rgba(125, 211, 252, 0.3);
+  }
+
+  .ice-crystal {
+    background: linear-gradient(45deg, 
+      transparent 30%, 
+      rgba(255, 255, 255, 0.3) 40%, 
+      rgba(255, 255, 255, 0.1) 60%, 
+      transparent 70%
+    );
+  }
+
+  .ptt-button {
+    background: radial-gradient(circle at 30% 30%, 
+      rgba(255, 255, 255, 0.8) 0%, 
+      rgba(168, 85, 247, 0.8) 40%, 
+      rgba(139, 69, 19, 0.9) 100%
+    );
+    transition: all 0.2s ease-in-out;
+  }
+
+  .ptt-button:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .play-button {
+    background: radial-gradient(circle at 30% 30%, 
+      rgba(255, 255, 255, 0.9) 0%, 
+      rgba(14, 165, 233, 0.8) 50%, 
+      rgba(7, 89, 133, 0.9) 100%
+    );
+  }
+
+  .nft-glow {
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  .receiving-indicator {
+    animation: pulse 1.5s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.4) 100%);
+  }
+
+  .transmitting-indicator {
+    animation: pulse 1s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.4) 100%);
+  }
+
+  .status-light {
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
 .App {
     text-align: center;
 }
