@@ -15,8 +15,9 @@ from web3 import Web3
 import unittest
 
 # Configuration
-BACKEND_URL = "https://32cf7cc8-fca5-4a00-8de4-68c38f1b5941.preview.emergentagent.com/api"
-WS_URL = "wss://32cf7cc8-fca5-4a00-8de4-68c38f1b5941.preview.emergentagent.com/ws"
+# Use the direct port since we're testing locally
+BACKEND_URL = "http://localhost:8002/api"
+WS_URL = "ws://localhost:8002/ws"
 JWT_SECRET = "your-secret-key-here-change-in-production"  # Same as in .env
 
 class YetiTalkiBackendTest(unittest.TestCase):
