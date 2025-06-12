@@ -214,30 +214,87 @@
   }
 
   .ptt-button {
-    background: radial-gradient(circle at 30% 30%, #ff0040 0%, #cc0033 100%);
-    border: 3px solid #ff3366;
+    background: 
+      radial-gradient(circle at center, rgba(255, 0, 64, 0.15) 0%, rgba(139, 0, 35, 0.15) 70%),
+      linear-gradient(145deg, rgba(20, 20, 20, 0.95) 0%, rgba(40, 40, 40, 0.95) 100%);
+    border: 2px solid #ff0040;
+    border-radius: 50%;
+    color: #ff0040;
+    text-shadow: 0 0 15px #ff0040, 0 0 25px #ff0040;
     box-shadow: 
-      0 0 25px rgba(255, 0, 64, 0.6),
-      inset 0 0 15px rgba(255, 255, 255, 0.2);
+      0 0 30px rgba(255, 0, 64, 0.6),
+      inset 0 0 20px rgba(255, 0, 64, 0.1),
+      0 0 60px rgba(255, 0, 64, 0.4);
     width: 88px !important;
     height: 88px !important;
+    font-size: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ptt-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      conic-gradient(
+        from 0deg,
+        rgba(255, 0, 64, 0.3),
+        rgba(255, 107, 0, 0.3),
+        rgba(255, 0, 64, 0.3)
+      );
+    animation: rotate 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .ptt-button:hover::before {
+    opacity: 1;
   }
 
   .ptt-button:active {
-    background: radial-gradient(circle at 30% 30%, #ff3366 0%, #ff0040 100%);
+    transform: scale(0.95);
     box-shadow: 
-      0 0 35px rgba(255, 0, 64, 0.8),
-      inset 0 0 25px rgba(0, 0, 0, 0.3);
+      0 0 40px rgba(255, 0, 64, 0.8),
+      inset 0 0 30px rgba(255, 0, 64, 0.3),
+      0 0 80px rgba(255, 0, 64, 0.6);
   }
 
   .play-button {
-    background: radial-gradient(circle at 30% 30%, #00ccff 0%, #0099cc 100%);
-    border: 3px solid #33ddff;
+    background: 
+      radial-gradient(circle at center, rgba(0, 212, 255, 0.15) 0%, rgba(0, 100, 150, 0.15) 70%),
+      linear-gradient(145deg, rgba(20, 20, 20, 0.95) 0%, rgba(40, 40, 40, 0.95) 100%);
+    border: 2px solid #00d4ff;
+    border-radius: 50%;
+    color: #00d4ff;
+    text-shadow: 0 0 15px #00d4ff, 0 0 25px #00d4ff;
     box-shadow: 
-      0 0 20px rgba(0, 204, 255, 0.5),
-      inset 0 0 10px rgba(255, 255, 255, 0.2);
+      0 0 25px rgba(0, 212, 255, 0.5),
+      inset 0 0 15px rgba(0, 212, 255, 0.1),
+      0 0 50px rgba(0, 212, 255, 0.3);
     width: 80px !important;
     height: 80px !important;
+    font-size: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .play-button:hover {
+    transform: scale(1.05);
+    box-shadow: 
+      0 0 35px rgba(0, 212, 255, 0.7),
+      inset 0 0 20px rgba(0, 212, 255, 0.2),
+      0 0 70px rgba(0, 212, 255, 0.5);
+    color: #ffffff;
+    text-shadow: 0 0 20px #00d4ff, 0 0 30px #00d4ff;
+  }
+
+  .play-button:active {
+    transform: scale(0.95);
   }
 
   .status-light {
