@@ -344,6 +344,43 @@ const FuturisticHamRadio = () => {
 
   return (
     <div className="fixed inset-0 overflow-hidden flex flex-col">
+      {/* Shutdown Overlay */}
+      {isShuttingDown && (
+        <div className="shutdown-overlay" style={{ animation: 'fadeToBlack 1s ease-in-out' }}>
+          <div className="shutdown-terminal">
+            <div className="shutdown-text">
+              <div style={{ marginBottom: '20px' }}>
+                &gt;&gt; YETI TECH SYSTEM SHUTDOWN INITIATED &lt;&lt;
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                [INFO] Terminating active connections...
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                [INFO] Closing audio streams...
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                [INFO] Shutting down frequency analyzer...
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                [INFO] Disconnecting from APE CHAIN NETWORK...
+              </div>
+              <div style={{ marginBottom: '20px' }}>
+                [INFO] Preparing system transfer...
+              </div>
+              
+              <div className="shutdown-progress">
+                <div className="shutdown-bar"></div>
+              </div>
+              
+              <div style={{ marginTop: '20px' }}>
+                <span className="glitch-text">REDIRECTING TO YETI TECH HQ...</span>
+                <span className="shutdown-cursor">_</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Scan Line Effect */}
       <div className="scan-line fixed inset-0 pointer-events-none z-10"></div>
       
