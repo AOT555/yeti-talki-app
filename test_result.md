@@ -247,6 +247,18 @@ user_problem_statement: "Build and deploy a mobile app - Yeti Talki: A Web3 Comm
         - agent: "testing"
         - comment: "Tested the stop button functionality. When the audio is playing and the stop button (■) is clicked, the button changes back to the play button (▶), the frequency analyzer bars stop animating and go flat, the audio stops playing immediately (confirmed by console logs), and the display changes back to 'CHANNEL MONITOR' with 'NO SIGNAL AWAITING TRANSMISSION'. The status also changes back to 'STANDBY'. The complete cycle (static → play → animated → stop → static) works as expected."
 
+  - task: "Logo Replacement"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/FuturisticHamRadio.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "testing"
+        - comment: "Verified that the logo has been successfully changed. The top left corner now shows the Frosty Ape YETI Mob logo (actual NFT image) instead of the 'YT' text circle. The logo is circular with a cyan border and glow effect as required. The logo is sized at 48x48 pixels (w-12 h-12 in Tailwind CSS) and is properly positioned next to the 'YETI TALK' title. All other header elements remain the same, including the 'Built with YETI TECH' text. The logo has the following classes: 'w-12 h-12 rounded-full border-2 border-cyan-400 nft-glow' which provide the circular shape, cyan border, and glow effect as specified."
+        
   - task: "Yeti Tech Aesthetic"
     implemented: true
     working: true
