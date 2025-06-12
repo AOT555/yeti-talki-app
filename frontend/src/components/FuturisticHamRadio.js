@@ -230,6 +230,20 @@ const FuturisticHamRadio = () => {
     setShowAccessDenied(true);
   };
 
+  const stopAudio = () => {
+    console.log('Stop button clicked!');
+    
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      setCurrentAudio(null);
+    }
+    
+    setIsReceiving(false);
+    setCurrentSender(null);
+    console.log('Audio stopped and display cleared');
+  };
+
   const playMessage = () => {
     console.log('Play button clicked!', { isReceiving, currentAudioFile });
     
@@ -245,12 +259,6 @@ const FuturisticHamRadio = () => {
         isKingYeti: true
       });
 
-      // Force a re-render to ensure the UI updates
-      setTimeout(() => {
-        console.log('Forcing UI update');
-        setFrequencyBars(prevBars => [...prevBars]);
-      }, 100);
-
       // Always try to play audio (either saved or default)
       const audioToPlay = currentAudioFile || KING_YETI_AUDIO;
       console.log('Playing audio from:', audioToPlay);
@@ -258,6 +266,7 @@ const FuturisticHamRadio = () => {
       try {
         const audio = new Audio(audioToPlay);
         audio.crossOrigin = "anonymous"; // Help with CORS issues
+        setCurrentAudio(audio); // Store audio instance for stop functionality
         
         audio.onloadstart = () => {
           console.log('Audio load started');
@@ -271,6 +280,7 @@ const FuturisticHamRadio = () => {
           console.log('Audio ended');
           setIsReceiving(false);
           setCurrentSender(null);
+          setCurrentAudio(null);
         };
 
         audio.onerror = (e) => {
@@ -281,6 +291,7 @@ const FuturisticHamRadio = () => {
             console.log('5 seconds up, clearing message (audio error)');
             setIsReceiving(false);
             setCurrentSender(null);
+            setCurrentAudio(null);
           }, 5000);
         };
 
@@ -294,6 +305,7 @@ const FuturisticHamRadio = () => {
             console.log('5 seconds up, clearing message (play error)');
             setIsReceiving(false);
             setCurrentSender(null);
+            setCurrentAudio(null);
           }, 5000);
         });
       } catch (error) {
@@ -303,6 +315,7 @@ const FuturisticHamRadio = () => {
           console.log('5 seconds up, clearing message (setup error)');
           setIsReceiving(false);
           setCurrentSender(null);
+          setCurrentAudio(null);
         }, 5000);
       }
     } else {
