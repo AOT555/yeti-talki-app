@@ -225,41 +225,44 @@ const FuturisticHamRadio = () => {
   };
 
   const playMessage = () => {
-    const audioToPlay = currentAudioFile;
-    
-    if (audioToPlay && !isReceiving) {
+    if (!isReceiving) {
       setIsReceiving(true);
-      const audio = new Audio(audioToPlay);
       
-      audio.onended = () => {
-        setIsReceiving(false);
-        setCurrentSender(null);
-      };
-
-      audio.onerror = () => {
-        setIsReceiving(false);
-        setCurrentSender(null);
-        console.error('Error playing audio');
-      };
-
-      // Show a mock sender when playing audio
+      // Show the King Yeti Broadcast message
       setCurrentSender({
-        tokenId: 'YETI',
+        tokenId: 'KING YETI',
         image: frostyApeYetiMobLogo,
-        duration: 'N/A'
+        duration: 'BROADCAST',
+        isKingYeti: true
       });
 
-      audio.play().catch(error => {
-        console.error('Error playing audio:', error);
-        setIsReceiving(false);
-        setCurrentSender(null);
-      });
-    } else if (currentSender && !isReceiving && !audioToPlay) {
-      setIsReceiving(true);
-      setTimeout(() => {
-        setIsReceiving(false);
-        setCurrentSender(null);
-      }, currentSender.duration * 1000);
+      // If there's audio from Google Drive, try to play it
+      if (currentAudioFile) {
+        const audio = new Audio(currentAudioFile);
+        
+        audio.onended = () => {
+          setIsReceiving(false);
+          setCurrentSender(null);
+        };
+
+        audio.onerror = () => {
+          setIsReceiving(false);
+          setCurrentSender(null);
+          console.error('Error playing audio');
+        };
+
+        audio.play().catch(error => {
+          console.error('Error playing audio:', error);
+          setIsReceiving(false);
+          setCurrentSender(null);
+        });
+      } else {
+        // If no audio file, just show the message for 5 seconds
+        setTimeout(() => {
+          setIsReceiving(false);
+          setCurrentSender(null);
+        }, 5000);
+      }
     }
   };
 
