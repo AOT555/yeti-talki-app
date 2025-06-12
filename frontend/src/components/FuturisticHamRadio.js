@@ -23,6 +23,7 @@ const FuturisticHamRadio = () => {
   const [currentAudioFile, setCurrentAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState('');
   const [lastChecked, setLastChecked] = useState(null);
+  const [showUploadPanel, setShowUploadPanel] = useState(false);
   
   // Google Drive folder settings - Replace this with your actual folder ID
   const GOOGLE_DRIVE_FOLDER_ID = '1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH';
