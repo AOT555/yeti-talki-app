@@ -226,9 +226,22 @@ const FuturisticHamRadio = () => {
     setDialedNumber('');
   };
 
-  const handleTransmit = () => {
-    // Show access denied popup instead of transmitting
-    setShowAccessDenied(true);
+  const handleShutdown = () => {
+    console.log('Initiating system shutdown...');
+    setIsShuttingDown(true);
+    
+    // Stop any playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      setCurrentAudio(null);
+    }
+    setIsReceiving(false);
+    setCurrentSender(null);
+    
+    // Wait for shutdown animation to complete, then redirect
+    setTimeout(() => {
+      window.location.href = 'https://yetitech.fun';
+    }, 4000); // 4 seconds for shutdown sequence
   };
 
   const stopAudio = () => {
