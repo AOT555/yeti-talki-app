@@ -226,7 +226,7 @@ user_problem_statement: "Build and deploy a mobile app - Yeti Talki: A Web3 Comm
 ## metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 ## test_plan:
