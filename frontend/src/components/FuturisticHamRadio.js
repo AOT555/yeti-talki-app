@@ -630,9 +630,9 @@ const FuturisticHamRadio = () => {
                 {/* PTT Button */}
                 <button
                   onClick={handleTransmit}
-                  className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
                 >
-                  <div className="text-3xl">📡</div>
+                  📡
                 </button>
               </div>
             </div>
