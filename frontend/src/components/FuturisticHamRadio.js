@@ -205,7 +205,7 @@ const FuturisticHamRadio = () => {
 
       // Show a mock sender when playing audio
       setCurrentSender({
-        tokenId: uploadedAudio ? 'UPLOAD' : 'YETI',
+        tokenId: currentAudioFile ? 'UPLOAD' : 'YETI',
         image: frostyApeYetiMobLogo,
         duration: 'N/A'
       });
