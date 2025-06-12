@@ -225,7 +225,10 @@ const FuturisticHamRadio = () => {
   };
 
   const playMessage = () => {
+    console.log('Play button clicked!', { isReceiving, currentAudioFile });
+    
     if (!isReceiving) {
+      console.log('Setting isReceiving to true and showing King Yeti message');
       setIsReceiving(true);
       
       // Show the King Yeti Broadcast message
@@ -238,14 +241,17 @@ const FuturisticHamRadio = () => {
 
       // If there's audio from Google Drive, try to play it
       if (currentAudioFile) {
+        console.log('Playing audio from:', currentAudioFile);
         const audio = new Audio(currentAudioFile);
         
         audio.onended = () => {
+          console.log('Audio ended');
           setIsReceiving(false);
           setCurrentSender(null);
         };
 
         audio.onerror = () => {
+          console.log('Audio error');
           setIsReceiving(false);
           setCurrentSender(null);
           console.error('Error playing audio');
@@ -257,12 +263,16 @@ const FuturisticHamRadio = () => {
           setCurrentSender(null);
         });
       } else {
+        console.log('No audio file, showing message for 5 seconds');
         // If no audio file, just show the message for 5 seconds
         setTimeout(() => {
+          console.log('5 seconds up, clearing message');
           setIsReceiving(false);
           setCurrentSender(null);
         }, 5000);
       }
+    } else {
+      console.log('Already receiving, ignoring click');
     }
   };
 
