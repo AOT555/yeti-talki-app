@@ -248,7 +248,7 @@ const FuturisticHamRadio = () => {
       }, 100);
 
       // Always try to play audio (either saved or default)
-      const audioToPlay = currentAudioFile || DEFAULT_YETI_AUDIO;
+      const audioToPlay = currentAudioFile || KING_YETI_AUDIO;
       console.log('Playing audio from:', audioToPlay);
       
       try {
