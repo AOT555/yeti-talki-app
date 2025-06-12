@@ -1,15 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Source+Code+Pro:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+    font-family: 'JetBrains Mono', 'Source Code Pro', 'Courier New', monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: radial-gradient(ellipse at center, #0a0f1c 0%, #000 70%);
+    background: 
+      linear-gradient(180deg, #000000 0%, #0a0a0a 25%, #1a1a1a 50%, #0a0a0a 75%, #000000 100%),
+      radial-gradient(circle at 20% 80%, #00ff41 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, #00d4ff 0%, transparent 50%);
+    background-attachment: fixed;
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.03) 2px,
+        rgba(0, 255, 65, 0.03) 4px
+      );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 100px,
+        rgba(0, 212, 255, 0.02) 100px,
+        rgba(0, 212, 255, 0.02) 102px
+      );
+    pointer-events: none;
+    z-index: 1;
   }
 }
 
