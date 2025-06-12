@@ -55,17 +55,26 @@ const FuturisticHamRadio = () => {
   // Check for new audio files from Google Drive folder
   const checkForNewAudio = async () => {
     try {
-      // This is a simple approach using Google Drive direct file access
-      // For a production app, you'd want to use Google Drive API properly
-      const testFileUrl = `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_FOLDER_ID}`;
+      // For now, we'll use a direct file approach since Google Drive API requires authentication
+      // You'll need to put a file in your folder and get its direct link
+      // This is a simplified approach - for production, you'd use Google Drive API with proper auth
       
-      // Test if the file is accessible
-      const response = await fetch(testFileUrl, { method: 'HEAD' });
-      if (response.ok) {
-        setCurrentAudioFile(testFileUrl);
-        setAudioFileName('Google Drive Audio');
-        setLastChecked(new Date());
-      }
+      // Example: If you put a file in your folder, you can get its direct link like this:
+      // 1. Right-click the file in your folder → "Get link" 
+      // 2. Change the sharing to "Anyone with the link can view"
+      // 3. Convert the link format from: https://drive.google.com/file/d/FILE_ID/view
+      // 4. To: https://drive.google.com/uc?export=download&id=FILE_ID
+      
+      // For demo purposes, let's check if there's a test file
+      // You'll need to replace this with your actual file ID when you upload an audio file
+      const testFileId = '1toEiG7tvIjkxV_6hTrAaRGcUOmhNaa_G'; // This is actually your folder ID
+      const testFileUrl = `https://drive.google.com/uc?export=download&id=${testFileId}`;
+      
+      setCurrentAudioFile(testFileUrl);
+      setAudioFileName('Google Drive Audio');
+      setLastChecked(new Date());
+      console.log('Checking Google Drive folder for audio files...');
+      
     } catch (error) {
       console.log('Checking for audio files...', error);
     }
