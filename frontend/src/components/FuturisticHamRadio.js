@@ -518,8 +518,8 @@ const FuturisticHamRadio = () => {
               </div>
             </div>
             <div className="text-right">
-              <div className="retro-text-cyan text-lg">APE CHAIN NETWORK</div>
-              <div className="retro-text">OPERATOR: YETI MOB #{user?.tokenId}</div>
+              <div className="retro-text-cyan text-lg">// APE CHAIN NETWORK</div>
+              <div className="retro-text">// OPERATOR: YETI MOB #{user?.tokenId}</div>
             </div>
           </div>
           
