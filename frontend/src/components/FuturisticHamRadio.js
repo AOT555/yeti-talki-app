@@ -23,7 +23,8 @@ const FuturisticHamRadio = () => {
   const [currentAudioFile, setCurrentAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState('');
   const [lastChecked, setLastChecked] = useState(null);
-  const [showUploadPanel, setShowUploadPanel] = useState(false);
+  // Store current audio instance for stop functionality
+  const [currentAudio, setCurrentAudio] = useState(null);
   
   // Local audio file path - your King Yeti audio
   const KING_YETI_AUDIO = '/audio/king_yeti_audio.mp3';
