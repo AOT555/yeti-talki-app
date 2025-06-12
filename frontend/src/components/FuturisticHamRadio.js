@@ -250,53 +250,56 @@ const FuturisticHamRadio = () => {
         setFrequencyBars(prevBars => [...prevBars]);
       }, 100);
 
-      // If there's audio from Google Drive, try to play it
-      if (currentAudioFile) {
-        console.log('Playing audio from:', currentAudioFile);
-        try {
-          const audio = new Audio(currentAudioFile);
-          
-          audio.onended = () => {
-            console.log('Audio ended');
-            setIsReceiving(false);
-            setCurrentSender(null);
-          };
+      // Always try to play audio (either saved or default)
+      const audioToPlay = currentAudioFile || DEFAULT_YETI_AUDIO;
+      console.log('Playing audio from:', audioToPlay);
+      
+      try {
+        const audio = new Audio(audioToPlay);
+        audio.crossOrigin = "anonymous"; // Help with CORS issues
+        
+        audio.onloadstart = () => {
+          console.log('Audio load started');
+        };
+        
+        audio.oncanplay = () => {
+          console.log('Audio can play');
+        };
+        
+        audio.onended = () => {
+          console.log('Audio ended');
+          setIsReceiving(false);
+          setCurrentSender(null);
+        };
 
-          audio.onerror = (e) => {
-            console.log('Audio error', e);
-            // Don't reset the display on audio error
-            // Just show the message for 5 seconds instead
-            setTimeout(() => {
-              console.log('5 seconds up, clearing message');
-              setIsReceiving(false);
-              setCurrentSender(null);
-            }, 5000);
-          };
-
-          audio.play().catch(error => {
-            console.error('Error playing audio:', error);
-            // Don't reset the display on audio error
-            // Just show the message for 5 seconds instead
-            setTimeout(() => {
-              console.log('5 seconds up, clearing message');
-              setIsReceiving(false);
-              setCurrentSender(null);
-            }, 5000);
-          });
-        } catch (error) {
-          console.error('Error setting up audio:', error);
-          // Just show the message for 5 seconds
+        audio.onerror = (e) => {
+          console.log('Audio error', e);
+          console.error('Audio error details:', audio.error);
+          // Show the message for 5 seconds if audio fails
           setTimeout(() => {
-            console.log('5 seconds up, clearing message');
+            console.log('5 seconds up, clearing message (audio error)');
             setIsReceiving(false);
             setCurrentSender(null);
           }, 5000);
-        }
-      } else {
-        console.log('No audio file, showing message for 5 seconds');
-        // If no audio file, just show the message for 5 seconds
+        };
+
+        // Attempt to play the audio
+        audio.play().then(() => {
+          console.log('Audio playing successfully');
+        }).catch(error => {
+          console.error('Error playing audio:', error);
+          // Show the message for 5 seconds if play fails
+          setTimeout(() => {
+            console.log('5 seconds up, clearing message (play error)');
+            setIsReceiving(false);
+            setCurrentSender(null);
+          }, 5000);
+        });
+      } catch (error) {
+        console.error('Error setting up audio:', error);
+        // Just show the message for 5 seconds
         setTimeout(() => {
-          console.log('5 seconds up, clearing message');
+          console.log('5 seconds up, clearing message (setup error)');
           setIsReceiving(false);
           setCurrentSender(null);
         }, 5000);
