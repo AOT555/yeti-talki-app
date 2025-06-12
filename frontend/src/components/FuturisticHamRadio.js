@@ -618,12 +618,12 @@ const FuturisticHamRadio = () => {
                 </div>
               </div>
 
-              {/* Audio Upload Status */}
-              {uploadedAudio && (
+              {/* Audio Status */}
+              {uploadedAudio ? (
                 <div className="bg-green-500/20 border border-green-500/40 rounded-lg p-3 mb-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-green-300 text-sm font-bold">🎵 AUDIO LOADED</div>
+                      <div className="text-green-300 text-sm font-bold">🎵 CUSTOM AUDIO LOADED</div>
                       <div className="text-green-200 text-xs truncate">{uploadedFileName}</div>
                     </div>
                     <button
@@ -632,6 +632,15 @@ const FuturisticHamRadio = () => {
                     >
                       ✕
                     </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-cyan-500/20 border border-cyan-500/40 rounded-lg p-3 mb-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-cyan-300 text-sm font-bold">🎵 YETI TRACK READY</div>
+                      <div className="text-cyan-200 text-xs">Default Yeti communication audio</div>
+                    </div>
                   </div>
                 </div>
               )}
