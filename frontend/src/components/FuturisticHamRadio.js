@@ -19,12 +19,13 @@ const FuturisticHamRadio = () => {
   const [voicemailTime, setVoicemailTime] = useState(0);
   const [callingNumber, setCallingNumber] = useState(null);
   const [showAccessDenied, setShowAccessDenied] = useState(false);
-  const [showUploadPanel, setShowUploadPanel] = useState(false);
-  
   // Google Drive folder integration - latest audio file
   const [currentAudioFile, setCurrentAudioFile] = useState(null);
   const [audioFileName, setAudioFileName] = useState('');
   const [lastChecked, setLastChecked] = useState(null);
+  
+  // Google Drive folder settings
+  const GOOGLE_DRIVE_FOLDER_ID = '1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH'; // You'll need to replace this with your folder ID
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
