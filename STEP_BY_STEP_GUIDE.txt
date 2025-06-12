@@ -1,0 +1,67 @@
+🚀 YETI TALKI DEPLOYMENT - STEP BY STEP GUIDE
+
+═══════════════════════════════════════════════════════════════
+
+📂 WHAT YOU'LL UPLOAD:
+Your build folder contains these files:
+├── index.html (main app file)
+├── static/ (CSS, JavaScript, assets)
+│   ├── css/
+│   ├── js/  
+│   └── media/
+└── audio/ (your King Yeti audio file)
+
+═══════════════════════════════════════════════════════════════
+
+📋 STEP-BY-STEP INSTRUCTIONS:
+
+🔸 STEP 1: Access Your Vercel Project
+1. Go to vercel.com and log in
+2. Find your yetitech.fun project
+3. Click on your project to open it
+
+🔸 STEP 2: Go to File Manager
+1. Look for "Files" tab or "File Manager" 
+2. If using GitHub: Go to your GitHub repo for yetitech.fun
+3. You should see your project files/folders
+
+🔸 STEP 3: Create Secret Folder
+1. Create a NEW FOLDER named exactly:
+   yeheyehenevergoingtoknowtheconnectionpath
+   
+   ⚠️  IMPORTANT: Copy this name exactly!
+   
+🔸 STEP 4: Upload Files
+1. Open your new folder: yeheyehenevergoingtoknowtheconnectionpath/
+2. Upload these files from your build folder:
+   ✅ index.html
+   ✅ static/ (entire folder)
+   ✅ audio/ (entire folder) 
+   ✅ asset-manifest.json
+
+🔸 STEP 5: Deploy
+1. Save/commit your changes
+2. Vercel will auto-deploy (usually takes 1-2 minutes)
+3. Wait for "Deployment Successful" message
+
+🔸 STEP 6: Test Your Secret URL
+Visit: https://yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath/
+
+═══════════════════════════════════════════════════════════════
+
+🎯 YOUR SECRET URL:
+https://yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath/
+
+🔥 WHAT WORKS:
+✅ Full Yeti Tech futuristic interface
+✅ Audio playback with your King Yeti track  
+✅ Shutdown animation → redirects to yetitech.fun
+✅ Mobile responsive
+✅ All functionality preserved
+
+═══════════════════════════════════════════════════════════════
+
+❓ NEED THE FILES?
+All files are ready in: /app/frontend/build/
+
+Just copy everything from the build/ folder to your new secret folder!
