@@ -748,19 +748,19 @@ const FuturisticHamRadio = () => {
               <div className="retro-text-orange text-lg mb-4 font-bold">// NETWORK STATUS</div>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="retro-text">NETWORK:</span>
+                  <span className="retro-text">// NETWORK:</span>
                   <span className="retro-text-cyan">APE CHAIN</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="retro-text">WALLET:</span>
+                  <span className="retro-text">// WALLET:</span>
                   <span className="retro-text-cyan">{user?.walletAddress?.slice(0, 10)}...</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="retro-text">NFT ID:</span>
+                  <span className="retro-text">// NFT ID:</span>
                   <span className="retro-text-cyan">#{user?.tokenId}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="retro-text">STATUS:</span>
+                  <span className="retro-text">// STATUS:</span>
                   <span className="text-red-400">RESTRICTED</span>
                 </div>
               </div>
