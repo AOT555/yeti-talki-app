@@ -768,7 +768,7 @@ const FuturisticHamRadio = () => {
 
             {/* Power Controls */}
             <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">SYSTEM CONTROLS</div>
+              <div className="retro-text-orange text-lg mb-4 font-bold">// SYSTEM CONTROLS</div>
               <div className="space-y-3">
                 <button 
                   onClick={handleShutdown}
