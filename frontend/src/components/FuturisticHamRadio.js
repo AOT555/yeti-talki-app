@@ -648,6 +648,7 @@ const FuturisticHamRadio = () => {
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-110 active:scale-95'
                   }`}
+                  style={{ width: '80px', height: '80px' }}
                 >
                   {isReceiving ? '⏸' : '▶'}
                 </button>
