@@ -651,10 +651,10 @@ const FuturisticHamRadio = () => {
               <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
                   <div className="retro-text text-xl font-mono mb-3">
-                    🎵 KING YETI AUDIO READY
+                    >> KING YETI AUDIO READY <<
                   </div>
                   <div className="retro-text-cyan">
-                    CLICK PLAY TO BROADCAST
+                    // CLICK PLAY TO BROADCAST
                   </div>
                 </div>
               </div>
