@@ -244,6 +244,11 @@ const FuturisticHamRadio = () => {
     }, 4000); // 4 seconds for shutdown sequence
   };
 
+  const handleTransmit = () => {
+    // Show access denied popup instead of transmitting
+    setShowAccessDenied(true);
+  };
+
   const stopAudio = () => {
     console.log('Stop button clicked!');
     
