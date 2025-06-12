@@ -25,11 +25,8 @@ const FuturisticHamRadio = () => {
   const [lastChecked, setLastChecked] = useState(null);
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   
-  // Google Drive folder settings - Your Yeti Talki Audio folder
-  const GOOGLE_DRIVE_FOLDER_ID = '1toEiG7tvIjkxV_6hTrAaRGcUOmhNaa_G';
-  
-  // Default audio file from your original Google Drive link
-  const DEFAULT_YETI_AUDIO = 'https://drive.google.com/uc?export=download&id=1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH';
+  // Local audio file path - your King Yeti audio
+  const KING_YETI_AUDIO = '/audio/king_yeti_audio.mp3';
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
