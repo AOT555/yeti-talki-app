@@ -502,15 +502,28 @@ const FuturisticHamRadio = () => {
                   <div className="text-center">
                     <img 
                       src={currentSender.image}
-                      alt={`Frosty Ape YETI Mob #${currentSender.tokenId}`}
+                      alt={currentSender.isKingYeti ? 'King Yeti' : `Frosty Ape YETI Mob #${currentSender.tokenId}`}
                       className="w-48 h-48 rounded-lg mx-auto mb-6 nft-glow border-3 border-cyan-400"
                     />
-                    <div className="retro-text-cyan text-2xl font-bold">
-                      YETI MOB #{currentSender.tokenId}
-                    </div>
-                    <div className="retro-text text-lg">
-                      DURATION: {currentSender.duration}s
-                    </div>
+                    {currentSender.isKingYeti ? (
+                      <div>
+                        <div className="retro-text-cyan text-2xl font-bold mb-2">
+                          ACCESS GRANTED
+                        </div>
+                        <div className="retro-text text-lg font-bold">
+                          KING YETI BROADCAST
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="retro-text-cyan text-2xl font-bold">
+                          YETI MOB #{currentSender.tokenId}
+                        </div>
+                        <div className="retro-text text-lg">
+                          DURATION: {currentSender.duration}s
+                        </div>
+                      </div>
+                    )}
                     {isReceiving && (
                       <div className="mt-3 retro-text-orange animate-pulse">
                         ● RECEIVING AUDIO ●
