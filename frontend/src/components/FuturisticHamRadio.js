@@ -250,8 +250,8 @@ const FuturisticHamRadio = () => {
     // Clear current audio and show upload panel
     localStorage.removeItem('yeti_call_audio');
     localStorage.removeItem('yeti_call_audio_name');
-    setUploadedAudio(null);
-    setUploadedFileName('');
+    setCurrentAudioFile(null);
+    setAudioFileName('');
     setShowUploadPanel(true);
   };
 
