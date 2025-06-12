@@ -83,7 +83,7 @@ const FuturisticHamRadio = () => {
     }
   };
 
-  // Initialize with saved audio file and check Google Drive
+  // Initialize with saved audio file and set default audio
   useEffect(() => {
     const savedAudio = localStorage.getItem('yeti_call_audio');
     const savedFileName = localStorage.getItem('yeti_call_audio_name');
@@ -91,8 +91,10 @@ const FuturisticHamRadio = () => {
       setCurrentAudioFile(savedAudio);
       setAudioFileName(savedFileName);
     } else {
-      // If no saved audio, check Google Drive
-      checkForNewAudio();
+      // Set default Yeti audio
+      setCurrentAudioFile(DEFAULT_YETI_AUDIO);
+      setAudioFileName('King Yeti Broadcast Audio');
+      setLastChecked(new Date());
     }
   }, []);
 
