@@ -100,16 +100,26 @@ const FuturisticHamRadio = () => {
     setActivityLog(initialLog);
   }, []);
 
-  // Animate frequency bars
+  // Animate frequency bars only when receiving audio
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFrequencyBars(prevBars => 
-        prevBars.map(() => Math.random() * 100)
-      );
-    }, 150);
+    let interval;
+    
+    if (isReceiving || isTransmitting || isRecordingVoicemail) {
+      // Animate when audio is active
+      interval = setInterval(() => {
+        setFrequencyBars(prevBars => 
+          prevBars.map(() => Math.random() * 100)
+        );
+      }, 150);
+    } else {
+      // Set bars to zero when no audio
+      setFrequencyBars(Array(30).fill(0));
+    }
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isReceiving, isTransmitting, isRecordingVoicemail]);
 
   // Load more activity log entries
   const loadMoreEntries = () => {
