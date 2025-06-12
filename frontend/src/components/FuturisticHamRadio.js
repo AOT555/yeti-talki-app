@@ -651,7 +651,7 @@ const FuturisticHamRadio = () => {
               <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
                   <div className="retro-text text-xl font-mono mb-3">
-                    >> KING YETI AUDIO READY <<
+                    &gt;&gt; KING YETI AUDIO READY &lt;&lt;
                   </div>
                   <div className="retro-text-cyan">
                     // CLICK PLAY TO BROADCAST
