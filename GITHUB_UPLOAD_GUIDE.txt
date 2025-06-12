@@ -1,0 +1,20 @@
+STEP-BY-STEP GITHUB UPLOAD GUIDE
+
+1. Go to: https://github.com/AOT555/yetitech-landing
+
+2. Click "Add file" → "Upload files"
+
+3. Create a new folder by typing in the upload box:
+   yeheyehenevergoingtoknowtheconnectionpath/
+
+4. I'll give you the exact files to upload:
+   - index.html (main file)
+   - static/css/main.c99d00d3.css (styles)
+   - static/js/main.6321d2c7.js (JavaScript)
+   - audio/king_yeti_audio.mp3 (your audio)
+
+5. Copy each file content I provide below
+
+6. Commit with message: "Add Yeti Talki secret app"
+
+7. Vercel auto-deploys to: yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath/
