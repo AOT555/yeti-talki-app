@@ -186,7 +186,7 @@ const FuturisticHamRadio = () => {
   };
 
   const playMessage = () => {
-    const audioToPlay = uploadedAudio || defaultYetiTrack;
+    const audioToPlay = currentAudioFile;
     
     if (audioToPlay && !isReceiving) {
       setIsReceiving(true);
