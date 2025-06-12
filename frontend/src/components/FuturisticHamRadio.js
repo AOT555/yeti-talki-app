@@ -632,9 +632,9 @@ const FuturisticHamRadio = () => {
                 {/* Play Button */}
                 <button
                   onClick={playMessage}
-                  disabled={isReceiving || isTransmitting || isRecordingVoicemail}
+                  disabled={isTransmitting || isRecordingVoicemail}
                   className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
-                    isReceiving || isTransmitting || isRecordingVoicemail
+                    isTransmitting || isRecordingVoicemail
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-110 active:scale-95'
                   }`}
