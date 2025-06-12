@@ -186,9 +186,11 @@ const FuturisticHamRadio = () => {
   };
 
   const playMessage = () => {
-    if (uploadedAudio && !isReceiving) {
+    const audioToPlay = uploadedAudio || defaultYetiTrack;
+    
+    if (audioToPlay && !isReceiving) {
       setIsReceiving(true);
-      const audio = new Audio(uploadedAudio);
+      const audio = new Audio(audioToPlay);
       
       audio.onended = () => {
         setIsReceiving(false);
@@ -198,12 +200,12 @@ const FuturisticHamRadio = () => {
       audio.onerror = () => {
         setIsReceiving(false);
         setCurrentSender(null);
-        console.error('Error playing uploaded audio');
+        console.error('Error playing audio');
       };
 
-      // Show a mock sender when playing uploaded audio
+      // Show a mock sender when playing audio
       setCurrentSender({
-        tokenId: 'UPLOAD',
+        tokenId: uploadedAudio ? 'UPLOAD' : 'YETI',
         image: frostyApeYetiMobLogo,
         duration: 'N/A'
       });
@@ -213,7 +215,7 @@ const FuturisticHamRadio = () => {
         setIsReceiving(false);
         setCurrentSender(null);
       });
-    } else if (currentSender && !isReceiving && !uploadedAudio) {
+    } else if (currentSender && !isReceiving && !audioToPlay) {
       setIsReceiving(true);
       setTimeout(() => {
         setIsReceiving(false);
