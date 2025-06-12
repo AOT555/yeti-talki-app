@@ -588,6 +588,13 @@ const FuturisticHamRadio = () => {
                         </div>
                       )}
                     </div>
+                    <button
+                      onClick={checkForNewAudio}
+                      className="text-cyan-400 hover:text-cyan-300 text-sm"
+                      title="Refresh Google Drive"
+                    >
+                      🔄
+                    </button>
                   </div>
                 </div>
               ) : (
@@ -597,6 +604,13 @@ const FuturisticHamRadio = () => {
                       <div className="text-orange-300 text-sm font-bold">🔍 SEARCHING FOR AUDIO</div>
                       <div className="text-orange-200 text-xs">Checking Google Drive folder...</div>
                     </div>
+                    <button
+                      onClick={checkForNewAudio}
+                      className="text-orange-400 hover:text-orange-300 text-sm"
+                      title="Refresh Google Drive"
+                    >
+                      🔄
+                    </button>
                   </div>
                 </div>
               )}
