@@ -80,19 +80,12 @@ const FuturisticHamRadio = () => {
     }
   };
 
-  // Initialize with saved audio file and set default audio
+  // Initialize with default King Yeti audio
   useEffect(() => {
-    const savedAudio = localStorage.getItem('yeti_call_audio');
-    const savedFileName = localStorage.getItem('yeti_call_audio_name');
-    if (savedAudio && savedFileName) {
-      setCurrentAudioFile(savedAudio);
-      setAudioFileName(savedFileName);
-    } else {
-      // Set default Yeti audio
-      setCurrentAudioFile(KING_YETI_AUDIO);
-      setAudioFileName('King Yeti Broadcast Audio');
-      setLastChecked(new Date());
-    }
+    // Always set the King Yeti audio as default
+    setCurrentAudioFile(KING_YETI_AUDIO);
+    setAudioFileName('King Yeti Broadcast Audio');
+    setLastChecked(new Date());
   }, []);
 
   // Periodically check for new audio (every 30 seconds)
