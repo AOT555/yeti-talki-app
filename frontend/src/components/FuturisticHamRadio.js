@@ -661,9 +661,9 @@ const FuturisticHamRadio = () => {
 
               {/* Control Buttons */}
               <div className="flex justify-center space-x-8">
-                {/* Play Button */}
+                {/* Play/Stop Button */}
                 <button
-                  onClick={playMessage}
+                  onClick={isReceiving ? stopAudio : playMessage}
                   disabled={isTransmitting || isRecordingVoicemail}
                   className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
                     isTransmitting || isRecordingVoicemail
@@ -672,7 +672,7 @@ const FuturisticHamRadio = () => {
                   }`}
                   style={{ width: '80px', height: '80px' }}
                 >
-                  {isReceiving ? '⏸' : '▶'}
+                  {isReceiving ? '■' : '▶'}
                 </button>
 
                 {/* PTT Button */}
