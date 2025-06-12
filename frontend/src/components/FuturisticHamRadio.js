@@ -745,7 +745,7 @@ const FuturisticHamRadio = () => {
 
             {/* Network Status */}
             <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">NETWORK STATUS</div>
+              <div className="retro-text-orange text-lg mb-4 font-bold">// NETWORK STATUS</div>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="retro-text">NETWORK:</span>
