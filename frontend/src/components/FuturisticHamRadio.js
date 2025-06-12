@@ -235,7 +235,7 @@ const FuturisticHamRadio = () => {
 
       // Show a mock sender when playing audio
       setCurrentSender({
-        tokenId: currentAudioFile ? 'UPLOAD' : 'YETI',
+        tokenId: 'YETI',
         image: frostyApeYetiMobLogo,
         duration: 'N/A'
       });
@@ -252,37 +252,6 @@ const FuturisticHamRadio = () => {
         setCurrentSender(null);
       }, currentSender.duration * 1000);
     }
-  };
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('audio/')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const audioData = e.target.result;
-        const fileName = file.name;
-        
-        // Save to localStorage for persistence
-        localStorage.setItem('yeti_call_audio', audioData);
-        localStorage.setItem('yeti_call_audio_name', fileName);
-        
-        setCurrentAudioFile(audioData);
-        setAudioFileName(fileName);
-        setShowUploadPanel(false);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert('Please select a valid audio file (MP3, WAV, etc.)');
-    }
-  };
-
-  const replaceAudio = () => {
-    // Clear current audio and show upload panel
-    localStorage.removeItem('yeti_call_audio');
-    localStorage.removeItem('yeti_call_audio_name');
-    setCurrentAudioFile(null);
-    setAudioFileName('');
-    setShowUploadPanel(true);
   };
 
   return (
