@@ -239,29 +239,54 @@ const FuturisticHamRadio = () => {
         isKingYeti: true
       });
 
+      // Force a re-render to ensure the UI updates
+      setTimeout(() => {
+        console.log('Forcing UI update');
+        setFrequencyBars(prevBars => [...prevBars]);
+      }, 100);
+
       // If there's audio from Google Drive, try to play it
       if (currentAudioFile) {
         console.log('Playing audio from:', currentAudioFile);
-        const audio = new Audio(currentAudioFile);
-        
-        audio.onended = () => {
-          console.log('Audio ended');
-          setIsReceiving(false);
-          setCurrentSender(null);
-        };
+        try {
+          const audio = new Audio(currentAudioFile);
+          
+          audio.onended = () => {
+            console.log('Audio ended');
+            setIsReceiving(false);
+            setCurrentSender(null);
+          };
 
-        audio.onerror = () => {
-          console.log('Audio error');
-          setIsReceiving(false);
-          setCurrentSender(null);
-          console.error('Error playing audio');
-        };
+          audio.onerror = (e) => {
+            console.log('Audio error', e);
+            // Don't reset the display on audio error
+            // Just show the message for 5 seconds instead
+            setTimeout(() => {
+              console.log('5 seconds up, clearing message');
+              setIsReceiving(false);
+              setCurrentSender(null);
+            }, 5000);
+          };
 
-        audio.play().catch(error => {
-          console.error('Error playing audio:', error);
-          setIsReceiving(false);
-          setCurrentSender(null);
-        });
+          audio.play().catch(error => {
+            console.error('Error playing audio:', error);
+            // Don't reset the display on audio error
+            // Just show the message for 5 seconds instead
+            setTimeout(() => {
+              console.log('5 seconds up, clearing message');
+              setIsReceiving(false);
+              setCurrentSender(null);
+            }, 5000);
+          });
+        } catch (error) {
+          console.error('Error setting up audio:', error);
+          // Just show the message for 5 seconds
+          setTimeout(() => {
+            console.log('5 seconds up, clearing message');
+            setIsReceiving(false);
+            setCurrentSender(null);
+          }, 5000);
+        }
       } else {
         console.log('No audio file, showing message for 5 seconds');
         // If no audio file, just show the message for 5 seconds
