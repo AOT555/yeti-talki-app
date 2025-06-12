@@ -587,45 +587,7 @@ const FuturisticHamRadio = () => {
                 </div>
               </div>
 
-              {/* Audio Status */}
-              {currentAudioFile ? (
-                <div className="bg-cyan-500/20 border border-cyan-500/40 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-cyan-300 text-sm font-bold">🎵 AUDIO READY</div>
-                      <div className="text-cyan-200 text-xs truncate">{audioFileName}</div>
-                      {lastChecked && (
-                        <div className="text-cyan-300 text-xs mt-1">
-                          Last checked: {lastChecked.toLocaleTimeString()}
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      onClick={checkForNewAudio}
-                      className="text-cyan-400 hover:text-cyan-300 text-sm"
-                      title="Refresh Google Drive"
-                    >
-                      🔄
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-orange-500/20 border border-orange-500/40 rounded-lg p-3 mb-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-orange-300 text-sm font-bold">🔍 SEARCHING FOR AUDIO</div>
-                      <div className="text-orange-200 text-xs">Checking Google Drive folder...</div>
-                    </div>
-                    <button
-                      onClick={checkForNewAudio}
-                      className="text-orange-400 hover:text-orange-300 text-sm"
-                      title="Refresh Google Drive"
-                    >
-                      🔄
-                    </button>
-                  </div>
-                </div>
-              )}
+
 
               {/* Control Buttons */}
               <div className="flex justify-center space-x-8">
