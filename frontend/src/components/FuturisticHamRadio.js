@@ -51,14 +51,42 @@ const FuturisticHamRadio = () => {
     };
   };
 
-  // Initialize with saved audio file
+  // Check for new audio files from Google Drive folder
+  const checkForNewAudio = async () => {
+    try {
+      // This is a simple approach using Google Drive direct file access
+      // For a production app, you'd want to use Google Drive API properly
+      const testFileUrl = `https://drive.google.com/uc?export=download&id=${GOOGLE_DRIVE_FOLDER_ID}`;
+      
+      // Test if the file is accessible
+      const response = await fetch(testFileUrl, { method: 'HEAD' });
+      if (response.ok) {
+        setCurrentAudioFile(testFileUrl);
+        setAudioFileName('Google Drive Audio');
+        setLastChecked(new Date());
+      }
+    } catch (error) {
+      console.log('Checking for audio files...', error);
+    }
+  };
+
+  // Initialize with saved audio file and check Google Drive
   useEffect(() => {
     const savedAudio = localStorage.getItem('yeti_call_audio');
     const savedFileName = localStorage.getItem('yeti_call_audio_name');
     if (savedAudio && savedFileName) {
       setCurrentAudioFile(savedAudio);
       setAudioFileName(savedFileName);
+    } else {
+      // If no saved audio, check Google Drive
+      checkForNewAudio();
     }
+  }, []);
+
+  // Periodically check for new audio (every 30 seconds)
+  useEffect(() => {
+    const interval = setInterval(checkForNewAudio, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   // Initialize activity log
