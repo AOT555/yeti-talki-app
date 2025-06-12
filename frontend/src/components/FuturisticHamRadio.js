@@ -606,7 +606,7 @@ const FuturisticHamRadio = () => {
 
             {/* Frequency Analyzer */}
             <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">FREQUENCY ANALYZER</div>
+              <div className="retro-text-orange text-lg mb-4 font-bold">// FREQUENCY ANALYZER</div>
               <div className="flex items-end space-x-1 h-32">
                 {frequencyBars.map((height, i) => (
                   <div
