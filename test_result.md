@@ -237,9 +237,7 @@ user_problem_statement: "Build and deploy a mobile app - Yeti Talki: A Web3 Comm
     - "Complete Web3 walkie-talkie application testing"
     - "NFT verification with mock contract"
     - "Audio recording and playback functionality"
-    - "Play Button Functionality"
-  stuck_tasks:
-    - "Play Button Functionality"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
