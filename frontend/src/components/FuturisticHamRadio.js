@@ -612,7 +612,7 @@ const FuturisticHamRadio = () => {
                     className="signal-bars w-4 rounded-t transition-all duration-150"
                     style={{ 
                       height: `${height}%`,
-                      opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.7
+                      opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.3
                     }}
                   ></div>
                 ))}
