@@ -26,6 +26,9 @@ const FuturisticHamRadio = () => {
   
   // Google Drive folder settings
   const GOOGLE_DRIVE_FOLDER_ID = '1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH'; // You'll need to replace this with your folder ID
+  
+  // Google Drive folder settings
+  const GOOGLE_DRIVE_FOLDER_ID = '1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH'; // You'll need to replace this with your folder ID
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
