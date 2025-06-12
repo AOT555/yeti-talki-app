@@ -771,10 +771,13 @@ const FuturisticHamRadio = () => {
               <div className="retro-text-orange text-lg mb-4 font-bold">SYSTEM CONTROLS</div>
               <div className="space-y-3">
                 <button 
-                  onClick={disconnect}
-                  className="retro-button w-full py-3 px-6 rounded font-bold text-lg"
+                  onClick={handleShutdown}
+                  disabled={isShuttingDown}
+                  className={`retro-button w-full py-3 px-6 rounded font-bold text-lg ${
+                    isShuttingDown ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
-                  SYSTEM SHUTDOWN
+                  {isShuttingDown ? '// SHUTTING DOWN...' : '// SYSTEM SHUTDOWN'}
                 </button>
               </div>
             </div>
