@@ -567,10 +567,10 @@ const FuturisticHamRadio = () => {
                     {currentSender.isKingYeti ? (
                       <div>
                         <div className="retro-text-cyan text-2xl font-bold mb-2">
-                          ACCESS GRANTED
+                          >> ACCESS GRANTED <<
                         </div>
-                        <div className="retro-text text-lg font-bold">
-                          KING YETI BROADCAST
+                        <div className="retro-text-green text-lg font-bold">
+                          // KING YETI BROADCAST
                         </div>
                       </div>
                     ) : (
