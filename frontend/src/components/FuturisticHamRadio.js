@@ -89,7 +89,7 @@ const FuturisticHamRadio = () => {
       setAudioFileName(savedFileName);
     } else {
       // Set default Yeti audio
-      setCurrentAudioFile(DEFAULT_YETI_AUDIO);
+      setCurrentAudioFile(KING_YETI_AUDIO);
       setAudioFileName('King Yeti Broadcast Audio');
       setLastChecked(new Date());
     }
