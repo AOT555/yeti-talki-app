@@ -526,9 +526,9 @@ const FuturisticHamRadio = () => {
           {/* Status Bar */}
           <div className="frequency-display rounded p-4 flex items-center justify-between">
             <div className="flex items-center space-x-8 text-lg">
-              <div>FREQ: {frequency} MHz</div>
-              <div>SIGNAL: {signalStrength}%</div>
-              <div>ACTIVE: {activeUsers} YETI MOBS</div>
+              <div>// FREQ: {frequency} MHz</div>
+              <div>// SIGNAL: {signalStrength}%</div>
+              <div>// ACTIVE: {activeUsers} YETI MOBS</div>
             </div>
             <div className="flex items-center space-x-3">
               <div className={`w-4 h-4 rounded-full ${
