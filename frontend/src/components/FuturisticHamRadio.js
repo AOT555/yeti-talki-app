@@ -646,7 +646,7 @@ const FuturisticHamRadio = () => {
           <div className="space-y-6">
             {/* Transmission Display */}
             <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">TRANSMISSION CONTROL</div>
+              <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
               
               <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
