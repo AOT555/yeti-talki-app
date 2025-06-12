@@ -1,48 +1,33 @@
-# Yeti Talki - Deployment Package
+# Yeti Talki - Simple Drag & Drop Deployment
 
-## Easy Integration to yetitech.fun
+## Super Easy Integration to yetitech.fun 🚀
 
-### Method 1: Add to Existing Vercel Project
+### Drag & Drop Method (Recommended):
 
-1. Copy the `build` folder contents to your yetitech.fun project
-2. Add the vercel.json rewrites to your existing vercel.json:
+1. **Go to your yetitech.fun Vercel project**
+2. **Create a folder** named: `yeheyehenevergoingtoknowtheconnectionpath`
+3. **Extract this package** and copy everything from `build/` folder
+4. **Drag & drop** all the files into your new folder
+5. **Deploy** your project (Vercel auto-deploys)
 
-```json
-{
-  "rewrites": [
-    ...your existing rewrites,
-    {
-      "source": "/yeheyehenevergoingtoknowtheconnectionpath",
-      "destination": "/yeti-talki/index.html"
-    },
-    {
-      "source": "/yeheyehenevergoingtoknowtheconnectionpath/(.*)",
-      "destination": "/yeti-talki/static/$1"
-    }
-  ]
-}
+### Your Secret URL:
+```
+https://yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath/
 ```
 
-3. Deploy your updated project
+### What You're Uploading:
+- `index.html` - Main app file
+- `static/` folder - CSS, JS, and assets
+- `audio/` folder - Your King Yeti audio file
 
-### Method 2: Direct Upload
+### Features Ready:
+✅ Full Yeti Tech futuristic aesthetic
+✅ Working audio playback with your track
+✅ Epic shutdown animation → redirects to yetitech.fun
+✅ Mobile-responsive design
+✅ Optimized 155KB build
 
-1. Create a `yeti-talki` folder in your project root
-2. Copy all contents from the `build` folder into it
-3. Access at: `yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath`
+### No Configuration Needed!
+Just upload the files and it works instantly. Vercel automatically serves static files from any folder.
 
-### Files Included:
-- `build/` - Complete production build
-- `vercel.json` - Vercel configuration
-- `audio/king_yeti_audio.mp3` - Your audio file
-
-### Features:
-✅ Full Yeti Tech aesthetic
-✅ Working audio playback
-✅ Shutdown animation → redirects to yetitech.fun
-✅ All functionality preserved
-✅ Mobile-ready
-✅ Optimized build (155KB)
-
-Access your hidden Yeti Talki at:
-`https://yetitech.fun/yeheyehenevergoingtoknowtheconnectionpath`
+**Total time to deploy: ~2 minutes** ⚡
