@@ -501,9 +501,11 @@ const FuturisticHamRadio = () => {
         <div className="relative z-20 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-                <span className="text-black font-bold text-lg">YT</span>
-              </div>
+              <img 
+                src={frostyApeYetiMobLogo}
+                alt="Frosty Ape YETI Mob" 
+                className="w-12 h-12 rounded-full border-2 border-cyan-400 nft-glow"
+              />
               <h1 className="retro-text text-4xl font-bold tracking-wider">YETI TALK</h1>
               <div className="flex items-center space-x-3 text-sm">
                 <span className="retro-text-orange">Built with</span>
