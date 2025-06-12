@@ -471,9 +471,9 @@ const FuturisticHamRadio = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-6">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-                <span className="text-black font-bold text-lg">YC</span>
+                <span className="text-black font-bold text-lg">YT</span>
               </div>
-              <h1 className="retro-text text-4xl font-bold tracking-wider">YETI CALL</h1>
+              <h1 className="retro-text text-4xl font-bold tracking-wider">YETI TALK</h1>
               <div className="flex items-center space-x-3 text-sm">
                 <span className="retro-text-orange">Built with</span>
                 <img 
