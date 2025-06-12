@@ -655,22 +655,6 @@ const FuturisticHamRadio = () => {
                   <div className="text-4xl">📡</div>
                 </button>
               </div>
-
-              {/* Upload Button */}
-              <div className="mt-4">
-                <button
-                  onClick={() => setShowUploadPanel(true)}
-                  disabled={isReceiving || isTransmitting || isRecordingVoicemail}
-                  className={`w-full py-3 rounded font-bold text-lg transition-all duration-200 flex items-center justify-center space-x-3 ${
-                    isReceiving || isTransmitting || isRecordingVoicemail
-                      ? 'opacity-50 cursor-not-allowed bg-gray-500'
-                      : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white hover:scale-105'
-                  }`}
-                >
-                  <span className="text-xl">🎵</span>
-                  <span>UPLOAD AUDIO</span>
-                </button>
-              </div>
             </div>
 
             {/* Network Status */}
