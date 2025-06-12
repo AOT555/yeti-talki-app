@@ -432,6 +432,69 @@
     background: linear-gradient(180deg, #00d4ff 0%, #ff6b00 100%);
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
   }
+
+  .shutdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .shutdown-terminal {
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid #00ff41;
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    text-align: left;
+    box-shadow: 
+      0 0 50px rgba(0, 255, 65, 0.5),
+      inset 0 0 30px rgba(0, 255, 65, 0.1);
+  }
+
+  .shutdown-text {
+    color: #00ff41;
+    font-size: 16px;
+    line-height: 1.6;
+    text-shadow: 0 0 10px #00ff41;
+    margin: 0;
+  }
+
+  .shutdown-cursor {
+    animation: blink 1s infinite;
+    color: #00ff41;
+  }
+
+  .shutdown-progress {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff41;
+    border-radius: 4px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .shutdown-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff41, #00d4ff);
+    width: 0%;
+    animation: shutdownProgress 3s ease-in-out forwards;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
+  }
+
+  .glitch-text {
+    animation: glitchShutdown 0.3s ease-in-out infinite;
+  }
 }
 
 @keyframes pulse-glow {
