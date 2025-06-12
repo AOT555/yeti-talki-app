@@ -25,8 +25,8 @@ const FuturisticHamRadio = () => {
   const [lastChecked, setLastChecked] = useState(null);
   const [showUploadPanel, setShowUploadPanel] = useState(false);
   
-  // Google Drive folder settings - Replace this with your actual folder ID
-  const GOOGLE_DRIVE_FOLDER_ID = '1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH';
+  // Google Drive folder settings - Your Yeti Talki Audio folder
+  const GOOGLE_DRIVE_FOLDER_ID = '1toEiG7tvIjkxV_6hTrAaRGcUOmhNaa_G';
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
