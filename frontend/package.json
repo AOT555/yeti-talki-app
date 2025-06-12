@@ -2,7 +2,7 @@
   "name": "yeti-talki",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/yeheyehenevergoingtoknowtheconnectionpath",
+  "homepage": "./",
   "dependencies": {
     "axios": "^1.9.0",
     "cra-template": "1.2.0",
