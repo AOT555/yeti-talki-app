@@ -22,6 +22,9 @@ const FuturisticHamRadio = () => {
   const [uploadedAudio, setUploadedAudio] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState('');
   const [showUploadPanel, setShowUploadPanel] = useState(false);
+  
+  // Default Yeti Track URL (converted from Google Drive link)
+  const defaultYetiTrack = 'https://drive.google.com/uc?export=download&id=1fkLRY7BsymtL77gP9zZuJfobO8rYMxEH';
 
   // NFT Images - Frosty Ape YETI Mob logos
   const frostyApeYetiMobLogo = 'https://pbs.twimg.com/profile_images/1932109015816773632/VHzq_Axr_400x400.jpg'; // #1003 logo
