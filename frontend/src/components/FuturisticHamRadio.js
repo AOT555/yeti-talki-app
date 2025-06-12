@@ -55,8 +55,8 @@ const FuturisticHamRadio = () => {
     const savedAudio = localStorage.getItem('yeti_call_audio');
     const savedFileName = localStorage.getItem('yeti_call_audio_name');
     if (savedAudio && savedFileName) {
-      setUploadedAudio(savedAudio);
-      setUploadedFileName(savedFileName);
+      setCurrentAudioFile(savedAudio);
+      setAudioFileName(savedFileName);
     }
   }, []);
 
