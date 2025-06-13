@@ -797,10 +797,16 @@ const FuturisticHamRadio = () => {
                   entry.type === 'kingYeti' ? 'bg-orange-400' :
                   'bg-cyan-400'
                 } animate-pulse`}></div>
-                <div className="retro-text font-bold">{entry.sender}</div>
-                <div className="retro-text text-xs opacity-70">{entry.timestamp}</div>
+                <div className="retro-text font-bold">
+                  {entry.isYetiTech ? 'YETI TECH' : entry.sender || `YETI MOB #${entry.tokenId}`}
+                </div>
+                <div className="retro-text text-xs opacity-70">
+                  {new Date(entry.timestamp).toLocaleTimeString()}
+                </div>
               </div>
-              <div className="retro-text text-xs ml-4">{entry.message}</div>
+              <div className="retro-text text-xs ml-4">
+                {entry.message || `Audio transmission - ${entry.duration}s`}
+              </div>
             </div>
           ))}
           
