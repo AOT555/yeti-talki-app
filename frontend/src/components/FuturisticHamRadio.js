@@ -662,35 +662,34 @@ const FuturisticHamRadio = () => {
           </div>
 
           {/* Right Panel - Controls */}
-          <div className="flex flex-col h-full">
-            {/* Transmission Display - Tightened up */}
-            <div className="control-panel rounded-lg p-6 mb-4">
-              <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
+          <div className="flex flex-col h-full space-y-3">
+            {/* Transmission Display - Compact */}
+            <div className="control-panel rounded-lg p-4">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// TRANSMISSION CONTROL</div>
               
               {/* King Yeti Audio Ready Box */}
-              <div className="bg-black rounded p-4 mb-6">
+              <div className="bg-black rounded p-3 mb-4">
                 <div className="text-center">
-                  <div className="retro-text text-xl font-mono mb-3">
+                  <div className="retro-text text-lg font-mono mb-2">
                     🎵 KING YETI AUDIO READY
                   </div>
-                  <div className="retro-text-cyan">
+                  <div className="retro-text-cyan text-sm">
                     // CLICK PLAY TO BROADCAST
                   </div>
                 </div>
               </div>
 
               {/* Control Buttons */}
-              <div className="flex justify-center space-x-8">
+              <div className="flex justify-center space-x-6">
                 {/* Play/Stop Button */}
                 <button
                   onClick={isReceiving ? stopAudio : playMessage}
                   disabled={isTransmitting || isRecordingVoicemail}
-                  className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
+                  className={`play-button w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-2xl transition-all duration-200 ${
                     isTransmitting || isRecordingVoicemail
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:scale-110 active:scale-95'
                   }`}
-                  style={{ width: '80px', height: '80px' }}
                 >
                   {isReceiving ? '■' : '▶'}
                 </button>
@@ -698,35 +697,35 @@ const FuturisticHamRadio = () => {
                 {/* PTT Button */}
                 <button
                   onClick={handleTransmit}
-                  className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="ptt-button w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-2xl transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   📡
                 </button>
               </div>
             </div>
 
-            {/* Call Button - Bigger */}
+            {/* Call Button */}
             <button
               onClick={() => setShowPhonePad(true)}
               disabled={isTransmitting || isReceiving || isRecordingVoicemail}
-              className={`control-panel w-full py-6 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 mb-4 ${
+              className={`control-panel w-full py-4 rounded-lg font-bold text-lg transition-all duration-200 flex items-center justify-center space-x-3 ${
                 isTransmitting || isReceiving || isRecordingVoicemail
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:scale-105 active:scale-95 hover:shadow-xl'
               }`}
             >
-              <span className="text-2xl">📞</span>
+              <span className="text-xl">📞</span>
               <span className="retro-text-orange">CALL</span>
             </button>
 
             {/* Frequency Analyzer */}
-            <div className="control-panel rounded-lg p-4 mb-4">
-              <div className="retro-text-orange text-lg mb-3 font-bold">// FREQUENCY ANALYZER</div>
-              <div className="flex items-end space-x-1 h-24">
+            <div className="control-panel rounded-lg p-3">
+              <div className="retro-text-orange text-lg mb-2 font-bold">// FREQUENCY ANALYZER</div>
+              <div className="flex items-end space-x-1 h-16">
                 {frequencyBars.map((height, i) => (
                   <div
                     key={i}
-                    className="signal-bars w-4 rounded-t transition-all duration-150"
+                    className="signal-bars w-3 rounded-t transition-all duration-150"
                     style={{ 
                       height: `${height}%`,
                       opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.3
@@ -734,7 +733,7 @@ const FuturisticHamRadio = () => {
                   ></div>
                 ))}
               </div>
-              <div className="flex justify-between text-xs retro-text mt-2">
+              <div className="flex justify-between text-xs retro-text mt-1">
                 <span>20Hz</span>
                 <span>1kHz</span>
                 <span>10kHz</span>
@@ -743,33 +742,33 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Network Status */}
-            <div className="control-panel rounded-lg p-4 mb-4">
-              <div className="retro-text-orange text-lg mb-3 font-bold">// NETWORK STATUS</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
+            <div className="control-panel rounded-lg p-3">
+              <div className="retro-text-orange text-lg mb-2 font-bold">// NETWORK STATUS</div>
+              <div className="space-y-1">
+                <div className="flex justify-between text-sm">
                   <span className="retro-text">// NETWORK:</span>
                   <span className="retro-text-cyan">APE CHAIN</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm">
                   <span className="retro-text">// WALLET:</span>
                   <span className="retro-text-cyan">{user?.walletAddress?.slice(0, 10)}...</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm">
                   <span className="retro-text">// NFT ID:</span>
                   <span className="retro-text-cyan">#{user?.tokenId}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm">
                   <span className="retro-text">// STATUS:</span>
                   <span className="text-red-400">RESTRICTED</span>
                 </div>
               </div>
             </div>
 
-            {/* Shutdown Button Only - Bigger */}
+            {/* Shutdown Button Only */}
             <button 
               onClick={handleShutdown}
               disabled={isShuttingDown}
-              className={`retro-button w-full py-5 px-6 rounded font-bold text-lg ${
+              className={`retro-button w-full py-3 px-4 rounded font-bold text-lg ${
                 isShuttingDown ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
