@@ -603,7 +603,7 @@ const FuturisticHamRadio = () => {
           </div>
         </div>
 
-        <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(50vh-100px)]">
+        <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(55vh-80px)]">
           {/* Left Panel - NFT Display */}
           <div className="flex flex-col h-full">
             {/* Large NFT Display Panel */}
