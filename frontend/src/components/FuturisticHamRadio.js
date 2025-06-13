@@ -604,10 +604,10 @@ const FuturisticHamRadio = () => {
         </div>
 
         <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(55vh-80px)]">
-          {/* Left Panel - NFT Display */}
+          {/* Left Panel - NFT Display Only */}
           <div className="flex flex-col h-full">
-            {/* Large NFT Display Panel */}
-            <div className="nft-display-panel rounded-lg p-6 flex-1 mb-4">
+            {/* Large NFT Display Panel - Takes full space */}
+            <div className="nft-display-panel rounded-lg p-6 h-full">
               <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
                 {currentSender ? '// INCOMING TRANSMISSION' : '// CHANNEL MONITOR'}
               </div>
@@ -657,29 +657,6 @@ const FuturisticHamRadio = () => {
                     </div>
                   </div>
                 )}
-              </div>
-            </div>
-
-            {/* Frequency Analyzer */}
-            <div className="control-panel rounded-lg p-4">
-              <div className="retro-text-orange text-lg mb-3 font-bold">// FREQUENCY ANALYZER</div>
-              <div className="flex items-end space-x-1 h-24">
-                {frequencyBars.map((height, i) => (
-                  <div
-                    key={i}
-                    className="signal-bars w-4 rounded-t transition-all duration-150"
-                    style={{ 
-                      height: `${height}%`,
-                      opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.3
-                    }}
-                  ></div>
-                ))}
-              </div>
-              <div className="flex justify-between text-xs retro-text mt-2">
-                <span>20Hz</span>
-                <span>1kHz</span>
-                <span>10kHz</span>
-                <span>20kHz</span>
               </div>
             </div>
           </div>
