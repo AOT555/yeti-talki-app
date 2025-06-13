@@ -700,61 +700,61 @@ const FuturisticHamRadio = () => {
 
           {/* Right Panel - Controls */}
           <div className="flex flex-col h-full">
-            {/* Transmission Display */}
-            <div className="control-panel rounded-lg p-6 flex-1 mb-4">
+            {/* Transmission Display - Tightened up */}
+            <div className="control-panel rounded-lg p-6 mb-4">
               <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
               
-              {/* NFT Broadcast Display Area - Takes up half the space */}
-              <div className="bg-black border border-gray-600 rounded p-4 mb-4 h-32 flex items-center justify-center">
+              {/* King Yeti Audio Ready Box */}
+              <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
-                  <div className="w-24 h-24 border-2 border-dashed border-gray-500 rounded-lg mx-auto flex items-center justify-center">
-                    <div className="retro-text opacity-40 text-sm">
-                      NFT
-                    </div>
+                  <div className="retro-text text-xl font-mono mb-3">
+                    🎵 KING YETI AUDIO READY
+                  </div>
+                  <div className="retro-text-cyan">
+                    // CLICK PLAY TO BROADCAST
                   </div>
                 </div>
               </div>
-              
-              {/* Bottom Half - Split between Audio Ready Box and Control Buttons */}
-              <div className="flex-1 flex flex-col space-y-4">
-                {/* King Yeti Audio Ready Box */}
-                <div className="bg-black rounded p-3 flex-1 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="retro-text text-lg font-mono mb-2">
-                      🎵 KING YETI AUDIO READY
-                    </div>
-                    <div className="retro-text-cyan text-sm">
-                      // CLICK PLAY TO BROADCAST
-                    </div>
-                  </div>
-                </div>
 
-                {/* Control Buttons */}
-                <div className="flex justify-center space-x-8">
-                  {/* Play/Stop Button */}
-                  <button
-                    onClick={isReceiving ? stopAudio : playMessage}
-                    disabled={isTransmitting || isRecordingVoicemail}
-                    className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
-                      isTransmitting || isRecordingVoicemail
-                        ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:scale-110 active:scale-95'
-                    }`}
-                    style={{ width: '80px', height: '80px' }}
-                  >
-                    {isReceiving ? '■' : '▶'}
-                  </button>
+              {/* Control Buttons */}
+              <div className="flex justify-center space-x-8">
+                {/* Play/Stop Button */}
+                <button
+                  onClick={isReceiving ? stopAudio : playMessage}
+                  disabled={isTransmitting || isRecordingVoicemail}
+                  className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
+                    isTransmitting || isRecordingVoicemail
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'hover:scale-110 active:scale-95'
+                  }`}
+                  style={{ width: '80px', height: '80px' }}
+                >
+                  {isReceiving ? '■' : '▶'}
+                </button>
 
-                  {/* PTT Button */}
-                  <button
-                    onClick={handleTransmit}
-                    className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
-                  >
-                    📡
-                  </button>
-                </div>
+                {/* PTT Button */}
+                <button
+                  onClick={handleTransmit}
+                  className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
+                >
+                  📡
+                </button>
               </div>
             </div>
+
+            {/* Call Button */}
+            <button
+              onClick={() => setShowPhonePad(true)}
+              disabled={isTransmitting || isReceiving || isRecordingVoicemail}
+              className={`control-panel w-full py-4 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 mb-4 ${
+                isTransmitting || isReceiving || isRecordingVoicemail
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:scale-105 active:scale-95 hover:shadow-xl'
+              }`}
+            >
+              <span className="text-2xl">📞</span>
+              <span className="retro-text-orange">CALL</span>
+            </button>
 
             {/* Network Status */}
             <div className="control-panel rounded-lg p-4 mb-4">
@@ -779,21 +779,16 @@ const FuturisticHamRadio = () => {
               </div>
             </div>
 
-            {/* Power Controls */}
-            <div className="control-panel rounded-lg p-4">
-              <div className="retro-text-orange text-lg mb-3 font-bold">// SYSTEM CONTROLS</div>
-              <div className="space-y-2">
-                <button 
-                  onClick={handleShutdown}
-                  disabled={isShuttingDown}
-                  className={`retro-button w-full py-3 px-6 rounded font-bold text-lg ${
-                    isShuttingDown ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {isShuttingDown ? '// SHUTTING DOWN...' : '// SYSTEM SHUTDOWN'}
-                </button>
-              </div>
-            </div>
+            {/* Shutdown Button Only */}
+            <button 
+              onClick={handleShutdown}
+              disabled={isShuttingDown}
+              className={`retro-button w-full py-3 px-6 rounded font-bold text-lg ${
+                isShuttingDown ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {isShuttingDown ? '// SHUTTING DOWN...' : '// SYSTEM SHUTDOWN'}
+            </button>
           </div>
         </div>
       </div>
