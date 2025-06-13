@@ -780,7 +780,7 @@ const FuturisticHamRadio = () => {
       </div>
 
       {/* Activity Log */}
-      <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(45vh-80px)] pt-10 mt-8">
+      <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(30vh-60px)] pt-6 mt-4">
         <div className="retro-text-orange text-lg mb-4 font-bold">// FROSTY APE YETI MOB COMMUNICATION LOG</div>
         <div 
           className="h-full overflow-y-auto custom-scrollbar"
