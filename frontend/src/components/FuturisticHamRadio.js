@@ -661,7 +661,7 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Frequency Analyzer */}
-            <div className="control-panel rounded-lg p-4 mb-4">
+            <div className="control-panel rounded-lg p-4">
               <div className="retro-text-orange text-lg mb-3 font-bold">// FREQUENCY ANALYZER</div>
               <div className="flex items-end space-x-1 h-24">
                 {frequencyBars.map((height, i) => (
@@ -682,20 +682,6 @@ const FuturisticHamRadio = () => {
                 <span>20kHz</span>
               </div>
             </div>
-
-            {/* Call Button */}
-            <button
-              onClick={() => setShowPhonePad(true)}
-              disabled={isTransmitting || isReceiving || isRecordingVoicemail}
-              className={`control-panel w-full py-4 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 ${
-                isTransmitting || isReceiving || isRecordingVoicemail
-                  ? 'opacity-50 cursor-not-allowed'
-                  : 'hover:scale-105 active:scale-95 hover:shadow-xl'
-              }`}
-            >
-              <span className="text-2xl">📞</span>
-              <span className="retro-text-orange">CALL</span>
-            </button>
           </div>
 
           {/* Right Panel - Controls */}
