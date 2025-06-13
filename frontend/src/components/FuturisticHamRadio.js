@@ -705,11 +705,11 @@ const FuturisticHamRadio = () => {
               </div>
             </div>
 
-            {/* Call Button */}
+            {/* Call Button - Bigger */}
             <button
               onClick={() => setShowPhonePad(true)}
               disabled={isTransmitting || isReceiving || isRecordingVoicemail}
-              className={`control-panel w-full py-4 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 mb-4 ${
+              className={`control-panel w-full py-6 rounded-lg font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 mb-4 ${
                 isTransmitting || isReceiving || isRecordingVoicemail
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:scale-105 active:scale-95 hover:shadow-xl'
