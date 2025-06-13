@@ -603,11 +603,11 @@ const FuturisticHamRadio = () => {
           </div>
         </div>
 
-        <div className="relative z-20 grid grid-cols-2 gap-8 h-[calc(50vh-100px)]">
+        <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(50vh-100px)]">
           {/* Left Panel - NFT Display */}
-          <div className="space-y-6">
+          <div className="flex flex-col h-full">
             {/* Large NFT Display Panel */}
-            <div className="nft-display-panel rounded-lg p-6 h-96">
+            <div className="nft-display-panel rounded-lg p-6 flex-1 mb-4">
               <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
                 {currentSender ? '// INCOMING TRANSMISSION' : '// CHANNEL MONITOR'}
               </div>
@@ -661,9 +661,9 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Frequency Analyzer */}
-            <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">// FREQUENCY ANALYZER</div>
-              <div className="flex items-end space-x-1 h-32">
+            <div className="control-panel rounded-lg p-4 mb-4">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// FREQUENCY ANALYZER</div>
+              <div className="flex items-end space-x-1 h-24">
                 {frequencyBars.map((height, i) => (
                   <div
                     key={i}
@@ -699,23 +699,21 @@ const FuturisticHamRadio = () => {
           </div>
 
           {/* Right Panel - Controls */}
-          <div className="space-y-6">
+          <div className="flex flex-col h-full">
             {/* Transmission Display */}
-            <div className="control-panel rounded-lg p-6">
+            <div className="control-panel rounded-lg p-6 flex-1 mb-4">
               <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
               
               <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
                   <div className="retro-text text-xl font-mono mb-3">
-                    &gt;&gt; KING YETI AUDIO READY &lt;&lt;
+                    🎵 KING YETI AUDIO READY
                   </div>
                   <div className="retro-text-cyan">
                     // CLICK PLAY TO BROADCAST
                   </div>
                 </div>
               </div>
-
-
 
               {/* Control Buttons */}
               <div className="flex justify-center space-x-8">
@@ -744,9 +742,9 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Network Status */}
-            <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">// NETWORK STATUS</div>
-              <div className="space-y-3">
+            <div className="control-panel rounded-lg p-4 mb-4">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// NETWORK STATUS</div>
+              <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="retro-text">// NETWORK:</span>
                   <span className="retro-text-cyan">APE CHAIN</span>
@@ -767,9 +765,9 @@ const FuturisticHamRadio = () => {
             </div>
 
             {/* Power Controls */}
-            <div className="control-panel rounded-lg p-6">
-              <div className="retro-text-orange text-lg mb-4 font-bold">// SYSTEM CONTROLS</div>
-              <div className="space-y-3">
+            <div className="control-panel rounded-lg p-4">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// SYSTEM CONTROLS</div>
+              <div className="space-y-2">
                 <button 
                   onClick={handleShutdown}
                   disabled={isShuttingDown}
