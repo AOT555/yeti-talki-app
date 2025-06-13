@@ -606,9 +606,9 @@ const FuturisticHamRadio = () => {
         <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(70vh-60px)]">
           {/* Left Panel - NFT Display Only */}
           <div className="flex flex-col h-full">
-            {/* Smaller NFT Display Panel */}
-            <div className="nft-display-panel rounded-lg p-6 h-4/5">
-              <div className="retro-text-cyan text-lg mb-4 text-center font-bold">
+            {/* Channel Monitor - More compact */}
+            <div className="nft-display-panel rounded-lg p-4 h-full">
+              <div className="retro-text-cyan text-lg mb-3 text-center font-bold">
                 {currentSender ? '// INCOMING TRANSMISSION' : '// CHANNEL MONITOR'}
               </div>
               
@@ -618,11 +618,11 @@ const FuturisticHamRadio = () => {
                     <img 
                       src={currentSender.image}
                       alt={currentSender.isKingYeti ? 'King Yeti' : `Frosty Ape YETI Mob #${currentSender.tokenId}`}
-                      className="w-48 h-48 rounded-lg mx-auto mb-6 nft-glow border-3 border-cyan-400"
+                      className="w-40 h-40 rounded-lg mx-auto mb-4 nft-glow border-3 border-cyan-400"
                     />
                     {currentSender.isKingYeti ? (
                       <div>
-                        <div className="retro-text-cyan text-2xl font-bold mb-2">
+                        <div className="retro-text-cyan text-xl font-bold mb-2">
                           {'>>'} ACCESS GRANTED {'<<'}
                         </div>
                         <div className="retro-text-green text-lg font-bold">
@@ -631,7 +631,7 @@ const FuturisticHamRadio = () => {
                       </div>
                     ) : (
                       <div>
-                        <div className="retro-text-cyan text-2xl font-bold">
+                        <div className="retro-text-cyan text-xl font-bold">
                           YETI MOB #{currentSender.tokenId}
                         </div>
                         <div className="retro-text text-lg">
@@ -640,14 +640,14 @@ const FuturisticHamRadio = () => {
                       </div>
                     )}
                     {isReceiving && (
-                      <div className="mt-3 retro-text-orange animate-pulse">
+                      <div className="mt-2 retro-text-orange animate-pulse">
                         ● RECEIVING AUDIO ●
                       </div>
                     )}
                   </div>
                 ) : (
                   <div className="text-center">
-                    <div className="w-48 h-48 border-2 border-dashed border-gray-600 rounded-lg mx-auto mb-6 flex items-center justify-center">
+                    <div className="w-40 h-40 border-2 border-dashed border-gray-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
                       <div className="retro-text opacity-50">
                         NO SIGNAL
                       </div>
