@@ -704,52 +704,55 @@ const FuturisticHamRadio = () => {
             <div className="control-panel rounded-lg p-6 flex-1 mb-4">
               <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
               
-              {/* NFT Broadcast Display Area */}
-              <div className="bg-black border border-gray-600 rounded p-4 mb-4 h-24 flex items-center justify-center">
+              {/* NFT Broadcast Display Area - Takes up half the space */}
+              <div className="bg-black border border-gray-600 rounded p-4 mb-4 h-32 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-16 h-16 border-2 border-dashed border-gray-500 rounded-lg mx-auto flex items-center justify-center">
-                    <div className="retro-text opacity-40 text-xs">
+                  <div className="w-24 h-24 border-2 border-dashed border-gray-500 rounded-lg mx-auto flex items-center justify-center">
+                    <div className="retro-text opacity-40 text-sm">
                       NFT
                     </div>
                   </div>
                 </div>
               </div>
               
-              {/* King Yeti Audio Ready Box */}
-              <div className="bg-black rounded p-4 mb-6">
-                <div className="text-center">
-                  <div className="retro-text text-xl font-mono mb-3">
-                    🎵 KING YETI AUDIO READY
-                  </div>
-                  <div className="retro-text-cyan">
-                    // CLICK PLAY TO BROADCAST
+              {/* Bottom Half - Split between Audio Ready Box and Control Buttons */}
+              <div className="flex-1 flex flex-col space-y-4">
+                {/* King Yeti Audio Ready Box */}
+                <div className="bg-black rounded p-3 flex-1 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="retro-text text-lg font-mono mb-2">
+                      🎵 KING YETI AUDIO READY
+                    </div>
+                    <div className="retro-text-cyan text-sm">
+                      // CLICK PLAY TO BROADCAST
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Control Buttons */}
-              <div className="flex justify-center space-x-8">
-                {/* Play/Stop Button */}
-                <button
-                  onClick={isReceiving ? stopAudio : playMessage}
-                  disabled={isTransmitting || isRecordingVoicemail}
-                  className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
-                    isTransmitting || isRecordingVoicemail
-                      ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:scale-110 active:scale-95'
-                  }`}
-                  style={{ width: '80px', height: '80px' }}
-                >
-                  {isReceiving ? '■' : '▶'}
-                </button>
+                {/* Control Buttons */}
+                <div className="flex justify-center space-x-8">
+                  {/* Play/Stop Button */}
+                  <button
+                    onClick={isReceiving ? stopAudio : playMessage}
+                    disabled={isTransmitting || isRecordingVoicemail}
+                    className={`play-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 ${
+                      isTransmitting || isRecordingVoicemail
+                        ? 'opacity-50 cursor-not-allowed'
+                        : 'hover:scale-110 active:scale-95'
+                    }`}
+                    style={{ width: '80px', height: '80px' }}
+                  >
+                    {isReceiving ? '■' : '▶'}
+                  </button>
 
-                {/* PTT Button */}
-                <button
-                  onClick={handleTransmit}
-                  className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
-                >
-                  📡
-                </button>
+                  {/* PTT Button */}
+                  <button
+                    onClick={handleTransmit}
+                    className="ptt-button w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-3xl transition-all duration-200 hover:scale-105 active:scale-95"
+                  >
+                    📡
+                  </button>
+                </div>
               </div>
             </div>
 
