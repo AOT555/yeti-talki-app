@@ -704,6 +704,18 @@ const FuturisticHamRadio = () => {
             <div className="control-panel rounded-lg p-6 flex-1 mb-4">
               <div className="retro-text-orange text-lg mb-4 font-bold">// TRANSMISSION CONTROL</div>
               
+              {/* NFT Broadcast Display Area */}
+              <div className="bg-black border border-gray-600 rounded p-4 mb-4 h-24 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 border-2 border-dashed border-gray-500 rounded-lg mx-auto flex items-center justify-center">
+                    <div className="retro-text opacity-40 text-xs">
+                      NFT
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* King Yeti Audio Ready Box */}
               <div className="bg-black rounded p-4 mb-6">
                 <div className="text-center">
                   <div className="retro-text text-xl font-mono mb-3">
