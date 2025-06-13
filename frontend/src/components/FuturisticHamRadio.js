@@ -778,62 +778,39 @@ const FuturisticHamRadio = () => {
         </div>
       </div>
 
-      {/* Activity Log */}
-      <div className="control-panel border-t-4 border-orange-500 p-6 h-[calc(30vh-60px)] pt-6 mt-4">
+      {/* Activity Log - Fixed Height with Scroll */}
+      <div className="control-panel border-t-4 border-orange-500 p-6 h-[200px] pt-6 mt-4">
         <div className="retro-text-orange text-lg mb-4 font-bold">// FROSTY APE YETI MOB COMMUNICATION LOG</div>
-        <div 
-          className="h-full overflow-y-auto custom-scrollbar"
-          onScroll={handleScroll}
-        >
-          <div className="space-y-3">
-            {activityLog.map((entry) => (
-              <div 
-                key={entry.id} 
-                className={`flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:bg-white/5 ${
-                  entry.type === 'own' ? 'bg-blue-500/10 border border-blue-500/30' :
-                  entry.type === 'emergency' ? 'bg-red-500/10 border border-red-500/30' :
-                  entry.type === 'voicemail' ? 'bg-purple-500/10 border border-purple-500/30' :
-                  entry.isYetiTech ? 'bg-orange-500/10 border border-orange-500/30' :
-                  'bg-gray-500/10 border border-gray-500/20'
-                }`}
-              >
-                <img 
-                  src={entry.image}
-                  alt={entry.isYetiTech ? `Yeti Tech` : `Frosty Ape YETI Mob #${entry.tokenId}`}
-                  className="w-12 h-12 rounded-full border-2 border-cyan-400/50"
-                />
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3">
-                    <span className="retro-text-cyan font-bold">
-                      {entry.isYetiTech ? 'YETI TECH' : `YETI MOB #${entry.tokenId}`}
-                    </span>
-                    <span className="retro-text text-sm">{formatDate(entry.timestamp)}</span>
-                    <span className="retro-text text-sm">{formatTime(entry.timestamp)}</span>
-                    <span className="retro-text-orange text-sm">{entry.duration}s</span>
-                    {entry.type === 'own' && (
-                      <span className="text-blue-400 text-xs font-bold">YOUR TRANSMISSION</span>
-                    )}
-                    {entry.type === 'emergency' && (
-                      <span className="text-red-400 text-xs font-bold animate-pulse">EMERGENCY</span>
-                    )}
-                    {entry.type === 'voicemail' && (
-                      <span className="text-purple-400 text-xs font-bold">
-                        📧 VOICEMAIL → #{entry.calledNumber}
-                      </span>
-                    )}
-                    {entry.isYetiTech && (
-                      <span className="text-orange-400 text-xs font-bold">YETI TECH COMM</span>
-                    )}
-                  </div>
-                </div>
+        <div className="h-[140px] overflow-y-auto space-y-2 pr-2">
+          {activityLog.slice().reverse().map((entry, index) => (
+            <div
+              key={index}
+              className={`rounded p-3 text-sm transition-all duration-300 ${
+                entry.type === 'voicemail' ? 'bg-purple-500/10 border border-purple-500/30' :
+                entry.type === 'kingYeti' ? 'bg-orange-500/10 border border-orange-500/30' :
+                'bg-cyan-500/10 border border-cyan-500/30'
+              }`}
+            >
+              <div className="flex items-center space-x-2 mb-1">
+                <div className={`w-2 h-2 rounded-full ${
+                  entry.type === 'voicemail' ? 'bg-purple-400' :
+                  entry.type === 'kingYeti' ? 'bg-orange-400' :
+                  'bg-cyan-400'
+                } animate-pulse`}></div>
+                <div className="retro-text font-bold">{entry.sender}</div>
+                <div className="retro-text text-xs opacity-70">{entry.timestamp}</div>
               </div>
-            ))}
-            {loadingMore && (
-              <div className="text-center py-4">
-                <div className="retro-text-cyan text-sm animate-pulse">LOADING MORE TRANSMISSIONS...</div>
+              <div className="retro-text text-xs ml-4">{entry.message}</div>
+            </div>
+          ))}
+          
+          {activityLog.length === 0 && (
+            <div className="text-center py-8">
+              <div className="retro-text opacity-50">
+                NO RECENT ACTIVITY
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
