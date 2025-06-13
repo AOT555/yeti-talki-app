@@ -719,6 +719,29 @@ const FuturisticHamRadio = () => {
               <span className="retro-text-orange">CALL</span>
             </button>
 
+            {/* Frequency Analyzer */}
+            <div className="control-panel rounded-lg p-4 mb-4">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// FREQUENCY ANALYZER</div>
+              <div className="flex items-end space-x-1 h-24">
+                {frequencyBars.map((height, i) => (
+                  <div
+                    key={i}
+                    className="signal-bars w-4 rounded-t transition-all duration-150"
+                    style={{ 
+                      height: `${height}%`,
+                      opacity: isTransmitting || isReceiving || isRecordingVoicemail ? 1 : 0.3
+                    }}
+                  ></div>
+                ))}
+              </div>
+              <div className="flex justify-between text-xs retro-text mt-2">
+                <span>20Hz</span>
+                <span>1kHz</span>
+                <span>10kHz</span>
+                <span>20kHz</span>
+              </div>
+            </div>
+
             {/* Network Status */}
             <div className="control-panel rounded-lg p-4 mb-4">
               <div className="retro-text-orange text-lg mb-3 font-bold">// NETWORK STATUS</div>
