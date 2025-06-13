@@ -765,11 +765,11 @@ const FuturisticHamRadio = () => {
               </div>
             </div>
 
-            {/* Shutdown Button Only */}
+            {/* Shutdown Button Only - Bigger */}
             <button 
               onClick={handleShutdown}
               disabled={isShuttingDown}
-              className={`retro-button w-full py-3 px-6 rounded font-bold text-lg ${
+              className={`retro-button w-full py-5 px-6 rounded font-bold text-lg ${
                 isShuttingDown ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
