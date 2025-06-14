@@ -604,15 +604,15 @@ const FuturisticHamRadio = () => {
         </div>
 
         <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(100vh-200px)]">
-          {/* Left Panel - NFT Display Only - Full Height */}
+          {/* Left Panel - NFT Display Only - Matched Height */}
           <div className="flex flex-col h-full">
-            {/* Channel Monitor - Full Height */}
-            <div className="nft-display-panel rounded-lg p-4 h-full">
+            {/* Channel Monitor - Matched to right panel height */}
+            <div className="nft-display-panel rounded-lg p-4 h-full flex flex-col">
               <div className="retro-text-cyan text-lg mb-3 text-center font-bold">
                 {currentSender ? '// INCOMING TRANSMISSION' : '// CHANNEL MONITOR'}
               </div>
               
-              <div className="h-full flex items-center justify-center">
+              <div className="flex-1 flex items-center justify-center">
                 {currentSender ? (
                   <div className="text-center">
                     <img 
