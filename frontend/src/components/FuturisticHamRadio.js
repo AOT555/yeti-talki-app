@@ -817,6 +817,8 @@ const FuturisticHamRadio = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
     </div>
   );
 };
