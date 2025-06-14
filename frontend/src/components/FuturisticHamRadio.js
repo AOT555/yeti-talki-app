@@ -603,10 +603,10 @@ const FuturisticHamRadio = () => {
           </div>
         </div>
 
-        <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(100vh-280px)]">
-          {/* Left Panel - NFT Display Only */}
+        <div className="relative z-20 grid grid-cols-2 gap-3 h-[calc(100vh-200px)]">
+          {/* Left Panel - NFT Display Only - Full Height */}
           <div className="flex flex-col h-full">
-            {/* Channel Monitor - More compact */}
+            {/* Channel Monitor - Full Height */}
             <div className="nft-display-panel rounded-lg p-4 h-full">
               <div className="retro-text-cyan text-lg mb-3 text-center font-bold">
                 {currentSender ? '// INCOMING TRANSMISSION' : '// CHANNEL MONITOR'}
@@ -661,7 +661,7 @@ const FuturisticHamRadio = () => {
             </div>
           </div>
 
-          {/* Right Panel - Controls */}
+          {/* Right Panel - Controls + Communication Log */}
           <div className="flex flex-col h-full space-y-4">
             {/* Transmission Display - More Space */}
             <div className="control-panel rounded-lg p-5">
@@ -774,6 +774,48 @@ const FuturisticHamRadio = () => {
             >
               {isShuttingDown ? '// SHUTTING DOWN...' : '// SYSTEM SHUTDOWN'}
             </button>
+
+            {/* Communication Log - Moved to Right Panel */}
+            <div className="control-panel border-t-4 border-orange-500 rounded-lg p-4 flex-1">
+              <div className="retro-text-orange text-lg mb-3 font-bold">// COMMUNICATION LOG</div>
+              <div className="h-32 overflow-y-auto space-y-2 pr-2">
+                {activityLog.slice().reverse().map((entry, index) => (
+                  <div
+                    key={index}
+                    className={`rounded p-2 text-sm transition-all duration-300 ${
+                      entry.type === 'voicemail' ? 'bg-purple-500/10 border border-purple-500/30' :
+                      entry.type === 'kingYeti' ? 'bg-orange-500/10 border border-orange-500/30' :
+                      'bg-cyan-500/10 border border-cyan-500/30'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2 mb-1">
+                      <div className={`w-2 h-2 rounded-full ${
+                        entry.type === 'voicemail' ? 'bg-purple-400' :
+                        entry.type === 'kingYeti' ? 'bg-orange-400' :
+                        'bg-cyan-400'
+                      } animate-pulse`}></div>
+                      <div className="retro-text font-bold text-xs">
+                        {entry.isYetiTech ? 'YETI TECH' : entry.sender || `YETI MOB #${entry.tokenId}`}
+                      </div>
+                      <div className="retro-text text-xs opacity-70">
+                        {new Date(entry.timestamp).toLocaleTimeString()}
+                      </div>
+                    </div>
+                    <div className="retro-text text-xs ml-4">
+                      {entry.message || `Audio transmission - ${entry.duration}s`}
+                    </div>
+                  </div>
+                ))}
+                
+                {activityLog.length === 0 && (
+                  <div className="text-center py-4">
+                    <div className="retro-text opacity-50 text-xs">
+                      NO RECENT ACTIVITY
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
